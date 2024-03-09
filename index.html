@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/index.css" />
+    <title>Money Tracking App</title>
+  </head>
+  <body>
+    <nav>
+      <h2>B1</h2>
+      <ul class="navigation">
+        <li><a href="#"><img src="img/icons/house-solid.svg" class="icon"></a></li>
+        <li><a href="#"><img src="img/icons/chart-simple-solid.svg" class="icon"></a></li>
+        <li><a href="#"><img src="img/icons/square-plus-solid.svg" class="icon"></a></li>
+        <li><a href="#"><img src="img/icons/square-minus-solid.svg" class="icon"></a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <!-- Grid -->
+      <header>
+        <!-- Flex -->
+        <h2>Good Morning, <span class="user">User</span>!</h2>
+        <!-- <ul>
+          <li><a href="#"><</a></li>
+          <li><div class="greyBox">Jan</div></li>
+          <li><div class="greyBox">1900</div></li>
+          <li><a href="#">></a></li>
+        </ul> -->
+      </header>
+      <div class="balance">
+        <h3>My balance</h3>
+        <div class="greyBox">
+          <div id="card">
+            <div class="money">Rp. <span id="balance">5,000.00</span></div>
+            <div class="expireDate">03/29</div>
+            <div class="cardUser"><span class="user">User</span></div>
+            <div class="cardLogo">
+              <img src="img/Mastercard-logo.png" alt="cardLogo" />
+            </div>
+          </div>
+          <div class="target">
+            <h4>
+              Monthly Income Target
+              <p>
+                <span class="current">Rp. 5,000</span> /
+                <span class="target">Rp. 100,000</span>
+              </p>
+            </h4>
+            <div class="progressBar">
+              <div class="progress"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="chart">
+        <h3>Statistics</h3>
+        <canvas>
+          <!-- Masukin chart disini ya -->
+        </canvas>
+      </div>
+      <div class="summaries">
+        <h3>Summary</h3>
+        <div class="greyBox">
+          <div id="expense" class="summary">
+            <img src="img/icons/money-bill-solid.svg" class="icon">
+            <span class="header">Total expenses</span>
+            <span class="lastMonth">Last Month</span>
+            <span class="thisMonth">This Month</span>
+            <span class="lastMoney">-Rp. 4,000</span>
+            <span class="thisMoney">-Rp. 2,000</span>
+            <div class="button"><a href="#">></a></div>
+          </div>
+          <div id="income" class="summary">
+            <img src="img/icons/wallet-solid.svg" class="icon">
+            <span class="header">Total incomes</span>
+            <span class="lastMonth">Last Month</span>
+            <span class="thisMonth">This Month</span>
+            <span class="lastMoney">+Rp. 4,000</span>
+            <span class="thisMoney">+Rp. 2,000</span>
+            <div class="button"><a href="#">></a></div>
+          </div>
+        </div>
+      </div>
+      <div class="history">
+        <div class="header">
+          <h3>Transactions History</h3>
+          <a href="#">View All</a>
+        </div>
+        <div class="transaction">
+          <img src="img/icons/utensils-solid.svg" class="icon">
+          <span class="category">Food & Beverages</span>
+          <span class="description">Buying a loaf of bread</span>
+          <span class="expense">-Rp. 15,000</span>
+          <span class="date">09/03/2024</span>
+        </div>
+        <div class="transaction">
+          <img src="img/icons/van-shuttle-solid.svg" class="icon">
+          <span class="category">Transportation</span>
+          <span class="description">Taxi fee</span>
+          <span class="expense">-Rp. 30,000</span>
+          <span class="date">08/03/2024</span>
+        </div>
+        <div class="transaction">
+          <img src="img/icons/gamepad-solid.svg" class="icon">
+          <span class="category">Entertainment</span>
+          <span class="description">Free Fire top-up</span>
+          <span class="expense">-Rp. 75,000</span>
+          <span class="date">28/02/2024</span>
+        </div>
+        <div class="transaction">
+          <img src="img/icons/briefcase-medical-solid.svg" class="icon">
+          <span class="category">Medical</span>
+          <span class="description">Buy skin-whitening creams</span>
+          <span class="expense">-Rp. 50,000</span>
+          <span class="date">26/02/2024</span>
+        </div>
+        <div class="transaction">
+          <img src="img/icons/graduation-cap-solid.svg" class="icon">
+          <span class="category">Education</span>
+          <span class="description">Campus tuition fee</span>
+          <span class="expense">-Rp. 1,000,000</span>
+          <span class="date">01/02/2024</span>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
