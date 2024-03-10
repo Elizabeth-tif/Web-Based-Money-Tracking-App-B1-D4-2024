@@ -1,31 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign In</title>
-    <link rel="stylesheet" href="login.css">
-</head>
-<body>
-    <div class="login">
-        <h2>SIGNIN FORM</h2>
-        <form role="form" onsubmit="signIn(event);" autocomplete="off">
-            <div class="form-group">
-                <span>Username</span>
-                <input type="text" name="username" id="username" placeholder="Username" required>
-            </div>
-            <div class="form-group">
-                <span>Password</span>
-                <input type="password" name="pwd" id="pwd" placeholder="Password" required>
-            </div>
-            <div class="form-group">
-                <button type="submit">Sign In</button>
-            </div>
-        </form>
-        <p>Don't have an account? <a href="signup.html">Sign Up</a> here</p>
-    </div>
+    <link rel="stylesheet" href="css/login.css" />
+  </head>
 
-    <script type="text/javascript" src="js/login.js"></script>
-</body>
+  <body>
+    <div class="container">
+      <form
+        name="form-login"
+        role="form"
+        onsubmit="signIn(event);"
+        autocomplete="off"
+      >
+        <h1>SIGN IN</h1>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="username"
+            name="username"
+            id="username"
+            placeholder="Username"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="pwd">Password</label>
+          <input
+            type="password"
+            name="pwd"
+            id="pwd"
+            placeholder="Password"
+            required
+          />
+        </div>
+        <a href="signup.html">Don't have an account? Sign Up</a>
+        <div class="form-group">
+          <input id="login_btn" type="submit" value="Login" />
+        </div>
+      </form>
+    </div>
+  </body>
+  <script type="text/javascript" src="js/login.js"></script>
 </html>
