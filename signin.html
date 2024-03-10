@@ -1,31 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="css/login.css">
 </head>
+
 <body>
     <div class="login">
-        <h2>SIGNIN FORM</h2>
-        <form role="form" onsubmit="signIn(event);" autocomplete="off">
+        <form name="form-login" role="form" onsubmit="signIn(event);" autocomplete="off">
+
+            <h1>SIGN IN</h1>
             <div class="form-group">
-                <span>Username</span>
-                <input type="text" name="username" id="username" placeholder="Username" required>
+                <label for="username">Username</label>
+                <input type="username" name="username" id="username" placeholder="Username" required>
             </div>
             <div class="form-group">
-                <span>Password</span>
+                <label for="pwd">Password</label>
                 <input type="password" name="pwd" id="pwd" placeholder="Password" required>
             </div>
+            <p><em><a href="signup.html" style="color: gray; text-decoration: none;">Don't have an account? Sign
+                        Up</a></em></p>
             <div class="form-group">
-                <button type="submit">Sign In</button>
+                <input id="login_btn" type="submit" value="Login"></input>
             </div>
         </form>
-        <p>Don't have an account? <a href="signup.html">Sign Up</a> here</p>
     </div>
-
     <script type="text/javascript" src="js/login.js"></script>
 </body>
+
 </html>

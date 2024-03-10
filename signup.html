@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="css/login.css">
 </head>
+
 <body>
-    <main>
-        <h2>SIGNUP FORM</h2>
+    <div class="login">
         <form role="form" onsubmit="signUp(event);" autocomplete="off">
+
+            <h1>REGISTER</h1>
             <div class="form-group">
-                <span>Username</span>
-                <input type="text" name="username" id="username" placeholder="Username" required>
+                <label for="name">Username</label>
+                <input type="username" name="username" id="username" placeholder="Username" required>
             </div>
             <div class="form-group">
-                <span>Password</span>
+                <label for="pwd">Password</label>
                 <input type="password" name="pwd" id="pwd" placeholder="Password" required>
             </div>
+            <p><em><a href="signin.html" style="color: gray; text-decoration: none;">Already have an account?
+                        Login</a></em></p>
             <div class="form-group">
-                <button type="submit">Sign Up</button>
+                <input id="rgstr_btn" type="submit" value="Register">
             </div>
         </form>
-        <p>Already a member? <a href="signin.html">Sign In</a></p>
-    </main>
+    </div>
 
     <script type="text/javascript" src="js/login.js"></script>
 </body>
+
 </html>
