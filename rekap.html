@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
-    <script src="js/outcometbl.js"></script>
+    <script src="js/incometbl.js"></script>
     <title>Money Tracking App</title>
   </head>
   <body>
@@ -24,22 +24,14 @@
       <ul class="navigation">
         <li><a href="index.html"><img src="img/icons/house.svg" class="icon"></a></li>
         <li><a href="chart.html"><img src="img/icons/chart.svg" class="icon"></a></li>
-        <li><a href="income.html"><img src="img/icons/plus.svg" class="icon"></a></li>
-        <li><a href="#"><img src="img/icons/minus.svg" class="icon"></a></li>
+        <li><a href="#"><img src="img/icons/plus.svg" class="icon"></a></li>
+        <li><a href="outcome.html"><img src="img/icons/minus.svg" class="icon"></a></li>
       </ul>
     </nav>
 
     <main>
-      <!-- Grid -->
       <header>
-        <!-- Flex -->
         <h2>Good Morning, <span class="user">User</span>!</h2>
-        <!-- <ul>
-          <li><a href="#"><</a></li>
-          <li><div class="greyBox">Jan</div></li>
-          <li><div class="greyBox">1900</div></li>
-          <li><a href="#">></a></li>
-        </ul> -->
       </header>
 
       <div class="chart">
@@ -48,12 +40,12 @@
           <a href="#">View All</a>
         </div>
         <div class="greyBox">
-            <table id="outcometable" class="stripe" style="width:100%">
+            <table id="incometable" class="stripe" style="width:100%">
                   <thead>
                   <th>Day</th>
                   <th>Month</th>
                   <th>Year</th>
-                  <th>Outcome</th>
+                  <th>Income</th>
                   </thead>        
               </table>
           </div>

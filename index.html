@@ -18,10 +18,24 @@
     <nav>
       <h2>B1</h2>
       <ul class="navigation">
-        <li><a href="#"><img src="img/icons/house.svg" class="icon"></a></li>
-        <li><a href="chart.html"><img src="img/icons/chart.svg" class="icon"></a></li>
-        <li><a href="income.html"><img src="img/icons/plus.svg" class="icon"></a></li>
-        <li><a href="outcome.html"><img src="img/icons/minus.svg" class="icon"></a></li>
+        <li>
+          <a href="#"><img src="img/icons/house.svg" class="icon" /></a>
+        </li>
+        <li>
+          <a href="chart.html"
+            ><img src="img/icons/chart.svg" class="icon"
+          /></a>
+        </li>
+        <li>
+          <a href="income.html"
+            ><img src="img/icons/plus.svg" class="icon"
+          /></a>
+        </li>
+        <li>
+          <a href="outcome.html"
+            ><img src="img/icons/minus.svg" class="icon"
+          /></a>
+        </li>
       </ul>
     </nav>
 
@@ -30,12 +44,6 @@
       <header>
         <!-- Flex -->
         <h2>Good Morning, <span class="user">User</span>!</h2>
-        <!-- <ul>
-          <li><a href="#"><</a></li>
-          <li><div class="greyBox">Jan</div></li>
-          <li><div class="greyBox">1900</div></li>
-          <li><a href="#">></a></li>
-        </ul> -->
       </header>
       <div class="balance">
         <h3>My balance</h3>
@@ -65,68 +73,68 @@
       <div class="chart">
         <div class="header">
           <h3>Statistics</h3>
-          <a href="#">View All</a>
+          <a href="chart.html">View All</a>
         </div>
-        <div class="chartBoongan"></div>
+        <canvas id="pieChart"></canvas>
       </div>
       <div class="summaries">
         <h3>Summary</h3>
         <div class="greyBox">
           <div id="expense" class="summary">
-            <img src="img/icons/money.svg" class="icon">
+            <img src="img/icons/money.svg" class="icon" />
             <span class="header">Total expenses</span>
             <span class="lastMonth">Last Month</span>
             <span class="thisMonth">This Month</span>
-            <span class="lastMoney">-Rp. 4,000</span>
-            <span class="thisMoney">-Rp. 2,000</span>
-            <div class="button"><a href="#">></a></div>
+            <span id="lastMonthOutcome" class="lastMoney">-Rp. 0</span>
+            <span id="thisMonthOutcome" class="thisMoney">-Rp. 0</span>
+            <div class="button"><a class="addOutcome">Add</a></div>
           </div>
           <div id="income" class="summary">
-            <img src="img/icons/wallet.svg" class="icon">
+            <img src="img/icons/wallet.svg" class="icon" />
             <span class="header">Total incomes</span>
             <span class="lastMonth">Last Month</span>
             <span class="thisMonth">This Month</span>
-            <span class="lastMoney">+Rp. 4,000</span>
-            <span class="thisMoney">+Rp. 2,000</span>
-            <div class="button"><a href="#">></a></div>
+            <span id="lastMonthIncome" class="lastMoney">+Rp. 0</span>
+            <span id="thisMonthIncome" class="thisMoney">+Rp. 0</span>
+            <div class="button"><a class="addIncome">Add</a></div>
           </div>
         </div>
       </div>
-      <div class="history">
+      <div id="history">
         <div class="header">
           <h3>Transactions History</h3>
           <a href="#">View All</a>
         </div>
         <div class="transaction">
-          <img src="img/icons/food.svg" class="icon">
+          <img src="img/icons/food.svg" class="icon" />
           <span class="category">Food & Beverages</span>
           <span class="description">Buying a loaf of bread</span>
           <span class="expense">-Rp. 15,000</span>
           <span class="date">09/03/2024</span>
         </div>
         <div class="transaction">
-          <img src="img/icons/transportation.svg" class="icon">
+          <img src="img/icons/transportation.svg" class="icon" />
           <span class="category">Transportation</span>
           <span class="description">Taxi fee</span>
           <span class="expense">-Rp. 30,000</span>
           <span class="date">08/03/2024</span>
         </div>
         <div class="transaction">
-          <img src="img/icons/gamepad.svg" class="icon">
+          <img src="img/icons/gamepad.svg" class="icon" />
           <span class="category">Entertainment</span>
           <span class="description">Free Fire top-up</span>
           <span class="expense">-Rp. 75,000</span>
           <span class="date">28/02/2024</span>
         </div>
         <div class="transaction">
-          <img src="img/icons/medical.svg" class="icon">
+          <img src="img/icons/medical.svg" class="icon" />
           <span class="category">Medical</span>
           <span class="description">Buy skin-whitening creams</span>
           <span class="expense">-Rp. 50,000</span>
           <span class="date">26/02/2024</span>
         </div>
         <div class="transaction">
-          <img src="img/icons/education.svg" class="icon">
+          <img src="img/icons/education.svg" class="icon" />
           <span class="category">Education</span>
           <span class="description">Campus tuition fee</span>
           <span class="expense">-Rp. 1,000,000</span>
@@ -134,5 +142,49 @@
         </div>
       </div>
     </main>
+    <div class="add">
+      <div id="incomeForm">
+        <form name="incomeForm" onsubmit="newIncome()">
+          <div class="header">
+            <h1>Income form</h1>
+            <a class="addIncome"><img src="img/icons/close.svg" class="icon"></a>
+          </div>
+          <label>Income :</label>
+          <input type="number" id="income" required /><br />
+          <label>Date :</label>
+          <input type="date" id="date" required /><br />
+          <label>Notes :</label>
+          <input type="text" id="incomeNotes" /><br />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+      <div id="outcomeForm">
+        <form name="outcomeForm" onsubmit="newOutcome()">
+          <div class="header">
+            <h1>Outcome Form</h1>
+            <a class="addOutcome"><img src="img/icons/close.svg" class="icon"></a>
+          </div>
+          <label>Outcome :</label>
+          <input type="number" id="outcome" required /><br />
+          <label>Date :</label>
+          <input type="date" id="date" required /><br />
+          <label for="outcomeCategory">Select Outcome Category :</label>
+          <select id="outcomeCategory" required>
+            <br />
+            <option value="Gadget">Gadget</option>
+            <option value="Hiburan">Hiburan</option>
+            <option value="Kesehatan">Kesehatan</option>
+            <option value="Makanan & Minuman">Makanan & Minuman</option>
+            <option value="Pendidikan">Pendidikan</option>
+            <option value="Transportasi">Transportasi</option></select
+          ><br />
+          <label>Notes :</label>
+          <input type="text" id="outcomeNotes" /><br />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+    </div>
   </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="js/index.js"></script>
 </html>

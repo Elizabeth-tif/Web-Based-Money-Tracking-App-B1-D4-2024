@@ -11,128 +11,113 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/chart.css" />
+
     <title>Money Tracking App</title>
   </head>
   <body>
     <nav>
       <h2>B1</h2>
       <ul class="navigation">
-        <li><a href="index.html"><img src="img/icons/house.svg" class="icon"></a></li>
-        <li><a href="#"><img src="img/icons/chart.svg" class="icon"></a></li>
-        <li><a href="income.html"><img src="img/icons/plus.svg" class="icon"></a></li>
-        <li><a href="outcome.html"><img src="img/icons/minus.svg" class="icon"></a></li>
+        <li>
+          <a href="index.html"
+            ><img src="img/icons/house.svg" class="icon"
+          /></a>
+        </li>
+        <li>
+          <a href="#"><img src="img/icons/chart.svg" class="icon" /></a>
+        </li>
+        <li>
+          <a href="income.html"
+            ><img src="img/icons/plus.svg" class="icon"
+          /></a>
+        </li>
+        <li>
+          <a href="outcome.html"
+            ><img src="img/icons/minus.svg" class="icon"
+          /></a>
+        </li>
       </ul>
     </nav>
 
     <main>
-      <!-- Grid -->
-      <header>
-        <!-- Flex -->
-        <h2>Good Morning, <span class="user">User</span>!</h2>
-        <!-- <ul>
-          <li><a href="#"><</a></li>
-          <li><div class="greyBox">Jan</div></li>
-          <li><div class="greyBox">1900</div></li>
-          <li><a href="#">></a></li>
-        </ul> -->
-      </header>
-      <div class="balance">
-        <h3>My balance</h3>
-        <div class="greyBox">
-          <div id="card">
-            <div class="money">Rp. <span id="balance">5,000.00</span></div>
-            <div class="expireDate">03/29</div>
-            <div class="cardUser"><span class="user">User</span></div>
-            <div class="cardLogo">
-              <img src="img/Mastercard-logo.png" alt="cardLogo" />
-            </div>
-          </div>
-          <div class="target">
-            <h4>
-              Monthly Income Target
-              <p>
-                <span class="current">Rp. 5,000</span> /
-                <span class="target">Rp. 100,000</span>
-              </p>
-            </h4>
-            <div class="progressBar">
-              <div class="progress"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- Pie Chart -->
       <div class="chart">
         <div class="header">
-          <h3>Statistics</h3>
-          <a href="#">View All</a>
+          <h3>Expenses By Category</h3>
         </div>
-        <div class="chartBoongan"></div>
+        <label for="monthDropdown">Select a month :</label>
+        <select id="pieGraphMonthDropdown" onchange="expenseGraph()">
+          <option value="1">January</option>
+          <option value="2">February</option>
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5">May</option>
+          <option value="6">June</option>
+          <option value="7">July</option>
+          <option value="8">August</option>
+          <option value="9">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
+        <label for="pieGraphYear">Input a year :</label>
+        <input
+          id="pieGraphYear"
+          type="number"
+          placeholder="year should be 2020-2024"
+          onchange="expenseGraph()"
+        />
+        <button onclick="expenseGraph()">Show Graph</button>
+        <canvas id="pieChart"></canvas>
       </div>
-      <div class="summaries">
-        <h3>Summary</h3>
-        <div class="greyBox">
-          <div id="expense" class="summary">
-            <img src="img/icons/money.svg" class="icon">
-            <span class="header">Total expenses</span>
-            <span class="lastMonth">Last Month</span>
-            <span class="thisMonth">This Month</span>
-            <span class="lastMoney">-Rp. 4,000</span>
-            <span class="thisMoney">-Rp. 2,000</span>
-            <div class="button"><a href="#">></a></div>
-          </div>
-          <div id="income" class="summary">
-            <img src="img/icons/wallet.svg" class="icon">
-            <span class="header">Total incomes</span>
-            <span class="lastMonth">Last Month</span>
-            <span class="thisMonth">This Month</span>
-            <span class="lastMoney">+Rp. 4,000</span>
-            <span class="thisMoney">+Rp. 2,000</span>
-            <div class="button"><a href="#">></a></div>
-          </div>
-        </div>
-      </div>
-      <div class="history">
+
+      <!-- Daily Chart -->
+      <div class="chart">
         <div class="header">
-          <h3>Transactions History</h3>
-          <a href="#">View All</a>
+          <h3>Daily Income / Expenses</h3>
         </div>
-        <div class="transaction">
-          <img src="img/icons/food.svg" class="icon">
-          <span class="category">Food & Beverages</span>
-          <span class="description">Buying a loaf of bread</span>
-          <span class="expense">-Rp. 15,000</span>
-          <span class="date">09/03/2024</span>
+        <label for="monthDropdown">Select a Month:</label>
+        <select id="dailyGraphMonthDropdown" onchange="dailyGraph()">
+          <option value="1">January</option>
+          <option value="2">February</option>
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5">May</option>
+          <option value="6">June</option>
+          <option value="7">July</option>
+          <option value="8">August</option>
+          <option value="9">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
+        <label>Input a year :</label>
+        <input
+          id="dailyGraphYear"
+          type="number"
+          placeholder="year should be 2020-2024"
+        />
+        <button onclick="dailyGraph()">Show Graph</button>
+        <canvas id="dailyChart" class="dailyObject"></canvas>
+      </div>
+
+      <!-- Monthly Chart -->
+      <div class="chart">
+        <div class="header">
+          <h3>Monthly Income / Expenses</h3>
         </div>
-        <div class="transaction">
-          <img src="img/icons/transportation.svg" class="icon">
-          <span class="category">Transportation</span>
-          <span class="description">Taxi fee</span>
-          <span class="expense">-Rp. 30,000</span>
-          <span class="date">08/03/2024</span>
-        </div>
-        <div class="transaction">
-          <img src="img/icons/gamepad.svg" class="icon">
-          <span class="category">Entertainment</span>
-          <span class="description">Free Fire top-up</span>
-          <span class="expense">-Rp. 75,000</span>
-          <span class="date">28/02/2024</span>
-        </div>
-        <div class="transaction">
-          <img src="img/icons/medical.svg" class="icon">
-          <span class="category">Medical</span>
-          <span class="description">Buy skin-whitening creams</span>
-          <span class="expense">-Rp. 50,000</span>
-          <span class="date">26/02/2024</span>
-        </div>
-        <div class="transaction">
-          <img src="img/icons/education.svg" class="icon">
-          <span class="category">Education</span>
-          <span class="description">Campus tuition fee</span>
-          <span class="expense">-Rp. 1,000,000</span>
-          <span class="date">01/02/2024</span>
-        </div>
+        <label>Input a year :</label>
+        <input
+          id="monthlyGraphYear"
+          type="number"
+          placeholder="year should be 2020-2024"
+        />
+        <button onclick="monthlyGraph()">Show Graph</button>
+        <canvas id="monthlyChart"></canvas>
       </div>
     </main>
   </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="js/chart.js"></script>
 </html>
