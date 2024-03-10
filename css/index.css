@@ -25,10 +25,116 @@ h4 {
   color: #86858c;
 }
 
+a {
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+
+a:hover {
+  box-shadow: 0 0 10px rgba(59, 63, 69, 0.5);
+  transform: translateY(-2px);
+}
+
 .icon {
   width: 30px;
   height: 30px;
 }
+
+/* Add Income / Expense */
+#incomeForm,
+#outcomeForm {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  /* width: 80%; */
+  padding: 20px;
+  background-color: #3b3f45;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(59, 63, 69, 0.2);
+  color: #f6f5fc;
+  margin: 0 40px;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: all 0.3s ease-in-out;
+}
+
+#incomeForm .header,
+#outcomeForm .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#incomeForm.slide,
+#outcomeForm.slide {
+  opacity: 1;
+  transform: translateY(30px);
+}
+
+#incomeForm input,
+#outcomeForm input,
+#outcomeForm select {
+  background-color: #f6f5fc;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 5px;
+  color: #3b3f45;
+  font-weight: 400;
+  font-size: 14px;
+  margin-top: 3px;
+  margin-bottom: 1em;
+  padding: 10px;
+  width: 100%;
+  transition-duration: 0.18s;
+}
+
+#incomeForm input:focus {
+  outline: none;
+  box-shadow: 0 0 15px rgba(246, 245, 252, 0.3);
+}
+
+#outcomeForm input:focus {
+  outline: none;
+  box-shadow: 0 0 15px rgba(246, 245, 252, 0.3);
+}
+
+#incomeForm select:focus {
+  outline: none;
+  box-shadow: 0 0 15px rgba(246, 245, 252, 0.3);
+}
+
+#outcomeForm select:focus {
+  outline: none;
+  box-shadow: 0 0 15px rgba(246, 245, 252, 0.3);
+}
+
+#incomeForm input[type="submit"] {
+  color: #3b3f45;
+  font-size: 16px;
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+
+#outcomeForm input[type="submit"] {
+  color: #3b3f45;
+  font-size: 16px;
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+
+#incomeForm input[type="submit"]:hover {
+  box-shadow: 0 0 15px rgba(246, 245, 252, 0.3);
+  transform: translateY(-2px);
+}
+
+#outcomeForm input[type="submit"]:hover {
+  box-shadow: 0 0 15px rgba(246, 245, 252, 0.3);
+  transform: translateY(-2px);
+}
+
 /* Navigation */
 nav {
   position: fixed;
@@ -209,13 +315,31 @@ header {
   text-decoration: none;
 }
 
-/* UBAH INI */
-.chartBoongan {
+.chart button {
+  width: 48%;
+  box-sizing: border-box;
+  background-color: #3b3f45;
+  border: none;
+  border-radius: 5px;
+  color: #f6f5fc;
+  padding: 5px;
+  margin-bottom: 1em;
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+
+.chart button:hover {
+  box-shadow: 0 0 10px rgba(59, 63, 69, 0.5);
+  transform: translateY(-2px);
+}
+
+.chart canvas {
   width: 100%;
-  height: 250px;
-  border-radius: 15px;
-  box-shadow: 0 0 15px rgba(59, 63, 69, 0.2);
-  background-color: #f6f5fc;
+  max-width: 700px;
+  border: 3px solid #3b3f45;
+  border-radius: 5px;
+  align-self: center;
+  padding: 10px;
 }
 /* Chart End */
 
@@ -248,9 +372,6 @@ header {
 
 .summary .button {
   grid-area: button;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
 }
 
 .summary a {
@@ -262,6 +383,8 @@ header {
   padding: 0 15px;
   background-color: #f6f5fc;
   border-radius: 5px;
+  color: #3b3f45;
+  font-weight: 600;
 }
 
 .summary .icon {
@@ -307,22 +430,22 @@ header {
 /* Summaries End */
 
 /* History */
-.history {
+#history {
   grid-area: history;
 }
 
-.history .header {
+#history .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.history .header h3 {
+#history .header h3 {
   margin: 0;
 }
 
-.history .header a {
+#history .header a {
   color: #f6f5fc;
   font-size: 14px;
   background-color: #3b3f45;
@@ -332,7 +455,7 @@ header {
   text-decoration: none;
 }
 
-.history .transaction {
+#history .transaction {
   background-color: #f6f5fc;
   padding: 10px;
   margin-bottom: 20px;
@@ -346,7 +469,7 @@ header {
   column-gap: 10px;
 }
 
-.history .transaction .icon {
+#history .transaction .icon {
   grid-area: icon;
   box-sizing: content-box;
   background-color: #fff;
@@ -354,27 +477,27 @@ header {
   border-radius: 12px;
 }
 
-.history .transaction .category {
+#history .transaction .category {
   grid-area: category;
   color: #3b3f45;
   font-weight: 600;
   font-size: 1.2em;
 }
 
-.history .transaction .description {
+#history .transaction .description {
   grid-area: description;
   font-size: 14px;
   color: #86858c;
 }
 
-.history .transaction .expense {
+#history .transaction .expense {
   grid-area: expense;
   color: #3b3f45;
   font-weight: 700;
   font-size: 1.2em;
 }
 
-.history .transaction .date {
+#history .transaction .date {
   grid-area: date;
   font-size: 14px;
   color: #86858c;
@@ -402,7 +525,6 @@ header {
 }
 
 @media screen and (max-width: 810px) {
-
   .balance .greyBox {
     display: grid;
     grid-template-areas: "card target";
@@ -434,7 +556,6 @@ header {
 }
 
 @media screen and (max-width: 460px) {
-
   nav {
     left: 0;
     right: 0;
@@ -451,7 +572,7 @@ header {
     margin-top: 0;
   }
 
-  nav ul li a{
+  nav ul li a {
     padding-top: 4.8px;
   }
 
@@ -471,6 +592,6 @@ header {
 @media screen and (max-width: 320px) {
   main {
     margin-left: 0;
-    margin-right: 0; 
+    margin-right: 0;
   }
 }
