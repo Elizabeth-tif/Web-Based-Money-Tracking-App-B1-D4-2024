@@ -9,6 +9,29 @@ var arrayIncome = ls.getItem('income');                 //array data income (unt
 var arrayOutcome = ls.getItem('outcome');               //array data outcome (untuk rekap)
 var arrayAllTransaction = ls.getItem('transaction');    //array seluruh transaksi (untuk transaction)
 
+//set min dan max tanggal yang bisa diinput
+let minDate = new Date(2020,0,1)                            //min date = 01-01-2023
+let minDateString = minDate.toLocaleDateString('en-CA');    //agar formatnya jadi YYYY-MM-DD
+let maxDate = new Date();                                   //max date = hari ini   
+let maxDateString = maxDate.toLocaleDateString('en-CA')     //agar formatnya jadi YYYY-MM-DD
+document.forms["incomeForm"]["date"].setAttribute("min",minDateString);
+document.forms["incomeForm"]["date"].setAttribute("max",maxDateString);
+document.forms["outcomeForm"]["date"].setAttribute("min",minDateString);
+document.forms["outcomeForm"]["date"].setAttribute("max",maxDateString);
+
+//set min dan max tahun yang bisa diinput
+document.getElementById('dailyGraphYear').value=maxDate.getFullYear();
+document.getElementById('dailyGraphYear').setAttribute("min",2020);
+document.getElementById('dailyGraphYear').setAttribute("max",maxDate.getFullYear());
+
+document.getElementById('monthlyGraphYear').value=maxDate.getFullYear();
+document.getElementById('monthlyGraphYear').setAttribute("min",2020);
+document.getElementById('monthlyGraphYear').setAttribute("max",maxDate.getFullYear());
+
+document.getElementById('pieGraphYear').value=maxDate.getFullYear();
+document.getElementById('pieGraphYear').setAttribute("min",2020);
+document.getElementById('pieGraphYear').setAttribute("max",maxDate.getFullYear());
+
 //parsing data dari local storage, yang asalnya array jadi bertype, jika key local storage masih kosong, diisi array kosong
 if(arrayIncome && arrayIncome.length > 0){
     arrayIncome = JSON.parse(arrayIncome);
@@ -117,6 +140,39 @@ function newOutcome(){
     return false;
 }
 
+//function untuk mengambil nilai dari local storage
+function getLocalStorageData(sorted) {
+    //ambil data array dari local storage yang fieldnya namanya income dan outcome
+    var dailyArrayIncome = ls.getItem('income');
+    var dailyArrayOutcome = ls.getItem('outcome');
+
+    //parsing dari local storage, asalnya String jadi menjadi type
+    if (dailyArrayIncome && dailyArrayIncome.length > 0) {
+        dailyArrayIncome = JSON.parse(dailyArrayIncome);
+    } else {
+        dailyArrayIncome = [];
+    }
+    if (dailyArrayOutcome && dailyArrayOutcome.length > 0) {
+        dailyArrayOutcome = JSON.parse(dailyArrayOutcome);
+    } else {
+        dailyArrayOutcome = [];
+    }
+
+    //jika parameternya true, maka akan di sort
+    if(sorted==true){
+        //sorting array sesuai tanggal (ascending)
+        dailyArrayIncome.sort(function(a,b){
+            return new Date(a.date) - new Date(b.date)
+        });
+        dailyArrayOutcome.sort(function(a,b){
+            return new Date(a.date) - new Date(b.date)
+        }); 
+    }
+
+    return { dailyArrayIncome, dailyArrayOutcome };
+}
+
+//function untuk menampilkan chart setiap hari dalam 1 bulan
 function dailyGraph(){
     const namaBulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
     //deklarasi array sebagai value dari sumbu x dan y dari graph nya
@@ -129,32 +185,12 @@ function dailyGraph(){
         myChart.destroy();
     }
 
-    //ambil value dari dropdown list
+    //ambil value dari input
     var selectedMonth = document.getElementById("monthDropdown").value;
+    var selectedYear = document.getElementById("dailyGraphYear").value;
 
-    //ambil data array dari local storage yang fieldnya namanya income
-    var dailyArrayIncome = ls.getItem('income');
-    var dailyArrayOutcome = ls.getItem('outcome');
-
-    //parsing dari local storage, asalnya array jadi type
-    if(dailyArrayIncome && dailyArrayIncome.length > 0){
-        dailyArrayIncome = JSON.parse(dailyArrayIncome);
-    } else {
-        dailyArrayIncome = [];
-    }
-    if(dailyArrayOutcome && dailyArrayOutcome.length > 0){
-        dailyArrayOutcome = JSON.parse(dailyArrayOutcome);
-    } else {
-        dailyArrayOutcome = [];
-    }
-
-    //sorting array sesuai date (ascending)
-    dailyArrayIncome.sort(function(a,b){
-        return new Date(a.date) - new Date(b.date)
-    });
-    dailyArrayOutcome.sort(function(a,b){
-        return new Date(a.date) - new Date(b.date)
-    }); 
+    //memanggil function getLocalStorageData untuk mendapatkan data dari local storage
+    var{dailyArrayIncome, dailyArrayOutcome} = getLocalStorageData(true)
 
     // Ambil objek incomeTable
     var table = document.getElementById("dailyTable");
@@ -185,7 +221,7 @@ function dailyGraph(){
         var date = new Date(uniqueDates[index]);
 
         // hanya memproses apabila date month nya ini sama dengan month yang dipilih di dropdown
-        if (date.getMonth() + 1 == selectedMonth) {
+        if (date.getMonth() + 1 == selectedMonth&&date.getFullYear()==selectedYear) {
             //push tanggal ke array untuk value di sumbu x
             xValues.push(date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear());
 
@@ -247,7 +283,7 @@ function dailyGraph(){
         options: {
             title: {
                 display: true,
-                text: 'Income and Outcome Per Hari Di Bulan '+namaBulan[selectedMonth-1],
+                text: 'Income and Outcome Per Hari Di Bulan '+namaBulan[selectedMonth-1]+" Di Tahun "+selectedYear,
                 fontSize: 16,
                 fontColor: 'black'
             }
@@ -266,30 +302,16 @@ function monthlyGraph(){
     //deklarasi array dengan isi nama per bulan, untuk value dari sumbu x graph ini
     const xValues = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
     
+    //mengambil tahun dari input
+    var selectedYear = document.getElementById("monthlyGraphYear").value;
 
-    //ambil data array dari local storage yang fieldnya namanya income dan outcome
-    var dailyArrayIncome = ls.getItem('income');
-    var dailyArrayOutcome = ls.getItem('outcome');
-
-    //parsing dari local storage, asalnya String jadi menjadi type
-    if(dailyArrayIncome && dailyArrayIncome.length > 0){
-        dailyArrayIncome = JSON.parse(dailyArrayIncome);
-    } else {
-        dailyArrayIncome = [];
-    }
-    if(dailyArrayOutcome && dailyArrayOutcome.length > 0){
-        dailyArrayOutcome = JSON.parse(dailyArrayOutcome);
-    } else {
-        dailyArrayOutcome = [];
+    // Menghapus chart sebelumnya apabila sudah ada (untuk prevent duplikasi chart)
+    if (myChart) {
+        myChart.destroy();
     }
 
-    //sorting array sesuai tanggal (ascending)
-    dailyArrayIncome.sort(function(a,b){
-        return new Date(a.date) - new Date(b.date)
-    });
-    dailyArrayOutcome.sort(function(a,b){
-        return new Date(a.date) - new Date(b.date)
-    }); 
+    //memanggil function getLocalStorageData untuk mendapatkan data dari local storage
+    var{dailyArrayIncome, dailyArrayOutcome} = getLocalStorageData(true)
 
     //Ambil elemen table untuk table bulanan
     var table = document.getElementById("monthlyTable");
@@ -300,15 +322,18 @@ function monthlyGraph(){
     }
 
     //Pengisian array total income per bulan
-    var idx=0;
+    var idx = 0;
     for (let i = 0; i < dailyArrayIncome.length; i++) {
         let dateTemp = new Date(dailyArrayIncome[i].date);
         //pengecekan apakah bulan masih sama dengan idx atau tidak
-        if(idx===(dateTemp.getMonth())){
-            totalPerBulanIncome[idx]=totalPerBulanIncome[idx]+dailyArrayIncome[i].income;
-        }else{      //kalau tidak, nambah index dan assign bulan baru
-            idx++;
-            totalPerBulanIncome[idx]=totalPerBulanIncome[idx]+dailyArrayIncome[i].income;
+        if (idx === dateTemp.getMonth() && selectedYear == dateTemp.getFullYear()) {
+            totalPerBulanIncome[idx] = totalPerBulanIncome[idx] + dailyArrayIncome[i].income;
+        } else if (selectedYear == dateTemp.getFullYear()) {
+            //kondisi apabila bulan sudah berbeda tapi tahun sama
+            idx = xValues.indexOf(xValues[dateTemp.getMonth()]);
+            if (idx !== -1 && dateTemp.getMonth() + 1 === idx + 1) {
+                totalPerBulanIncome[idx] = totalPerBulanIncome[idx] + dailyArrayIncome[i].income;
+            }
         }
     }
 
@@ -317,11 +342,14 @@ function monthlyGraph(){
     for (let i = 0; i < dailyArrayOutcome.length; i++) {
         let dateTemp = new Date(dailyArrayOutcome[i].date);
         //pengecekan apakah bulan masih sama dengan idx atau tidak
-        if(idx===(dateTemp.getMonth())){
+        if(idx===(dateTemp.getMonth()) && selectedYear==dateTemp.getFullYear()){
             totalPerBulanOutcome[idx]=totalPerBulanOutcome[idx]+dailyArrayOutcome[i].outcome;
-        }else{      //kalau tidak, nambah index dan assign bulan baru
-            idx++;
-            totalPerBulanOutcome[idx]=totalPerBulanOutcome[idx]+dailyArrayOutcome[i].outcome;
+        }else if(selectedYear==dateTemp.getFullYear()){      //kalau tidak, nambah index dan assign bulan baru
+            //kondisi apabila bulan sudah berbeda tapi tahun sama
+            idx = xValues.indexOf(xValues[dateTemp.getMonth()]);
+            if (idx !== -1 && dateTemp.getMonth() + 1 === idx + 1) {
+                totalPerBulanOutcome[idx] = totalPerBulanOutcome[idx] + dailyArrayOutcome[i].outcome;
+            }
         }
     }
     //pembuatan chart dan table sesuai data total income dan outcome per bulan
@@ -354,7 +382,7 @@ function monthlyGraph(){
     }
 
     //pembuatan chart
-    new Chart("monthlyChart", {
+    myChart = new Chart("monthlyChart", {
         type: "bar",       //tipe chartnya
         data: {
         labels: xValues,      //array buat nilai x
@@ -372,7 +400,7 @@ function monthlyGraph(){
         options: {
             title: {
                 display: true,
-                text: 'Income and Outcome Per Bulan di Tahun 2024',
+                text: 'Income and Outcome Per Bulan di Tahun '+selectedYear,
                 fontSize: 16,
                 fontColor: 'black'
             }
@@ -382,8 +410,9 @@ function monthlyGraph(){
 
 //function dibawah ini untuk menampilkan chart pengeluaran berdasarkan category per bulan, dibuat menjadi pie chart
 function expenseGraph(){
-    //mengambil value bulan yang dipilih dari input type dropdown
+    //mengambil value bulan dan tahun yang dipilih dari input type dropdown
     var selectedMonth = document.forms["pieChartForm"]["monthDropdown"].value;
+    var selectedYear = document.forms["pieChartForm"]["pieGraphYear"].value;
     //array dengan isi setiap bulan
     const month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
     //array pengeluaran per hari
@@ -437,9 +466,9 @@ function expenseGraph(){
         let date = new Date(expenseDaily[index].date);      //pembuatan objek date dari field array
 
         //kondisi penambahan ke array dengan index idx apabila bulan dan kategori sama
-        if((date.getMonth()+1)==selectedMonth&&expenseDaily[index].category==xValues[idx]){
+        if((date.getMonth()+1)==selectedMonth&&expenseDaily[index].category==xValues[idx]&&selectedYear==date.getFullYear()){
             totalExpenseCat[idx]+=expenseDaily[index].amount;
-        }else{
+        }else if(selectedYear==date.getFullYear()){
             //kondisi apabila kategori / bulan sudah berbeda
             idx = xValues.indexOf(expenseDaily[index].category);
             if (idx !== -1 && (date.getMonth() + 1) == selectedMonth) {
@@ -466,7 +495,7 @@ function expenseGraph(){
         options: {
           title: {
             display: true,
-            text: "Expenses By Category in "+month[selectedMonth-1]
+            text: "Pengeluaran Berdasarkan Kategori di Bulan "+month[selectedMonth-1]+" Tahun "+selectedYear
           }
         }
     });
@@ -554,4 +583,69 @@ function transactionHistory() {
             }
         }
     }
+}
+
+//function untuk menampilkan saldo saat ini, dihitung dari awal tahun
+function currentSaldo(){
+    //memanggil function getLocalStorageData untuk mendapatkan data dari local storage
+    var{dailyArrayIncome, dailyArrayOutcome} = getLocalStorageData(true)
+
+    //penampung totalIncome, totalOutcome, dan total
+    var totalIncome = 0;
+    var totalOutcome = 0;
+    var total = 0;
+
+    //menampung total income
+    for (let index = 0; index < dailyArrayIncome.length; index++) {
+        totalIncome = totalIncome + dailyArrayIncome[index].income;
+    }
+
+    //menampung total outcome
+    for (let index = 0; index < dailyArrayOutcome.length; index++) {
+        totalOutcome = totalOutcome + dailyArrayOutcome[index].outcome;
+    }
+    //total = total income - total outcome
+    total = totalIncome-totalOutcome;
+    
+    //agar dapat terlihat di web
+    document.getElementById('saldo').innerHTML=total.toLocaleString();
+    document.getElementById('totalIncome').innerHTML=totalIncome.toLocaleString();
+    document.getElementById('totalOutcome').innerHTML=totalOutcome.toLocaleString();
+}
+
+//fungsi untuk menampilkan summary total expenses dan total incomes di homepage
+function summary(){
+    //memanggil function getLocalStorageData untuk mendapatkan data dari local storage
+    var{dailyArrayIncome, dailyArrayOutcome} = getLocalStorageData(true)
+    const totalPerBulanIncome = new Array(2).fill(0); // Pembuatan array total income per bulan dengan size 2 dan isi dengan 0
+    const totalPerBulanOutcome = new Array(2).fill(0); // Pembuatan array total outcome per bulan dengan size 2 dan isi dengan 0
+    
+    var nowDate = new Date();
+    var currentMonth = nowDate.getMonth();
+    var lastMonth = (nowDate.getMonth()-1);
+
+    for (let index = 0; index < dailyArrayIncome.length; index++) {
+        let date = new Date(dailyArrayIncome[index].date);
+
+        if(date.getMonth()==currentMonth&&date.getFullYear()==nowDate.getFullYear()){
+            totalPerBulanIncome[0]=totalPerBulanIncome[0]+dailyArrayIncome[index].income;
+        }else if(date.getMonth()==lastMonth&&date.getFullYear()==nowDate.getFullYear()){
+            totalPerBulanIncome[1]=totalPerBulanIncome[1]+dailyArrayIncome[index].income;
+        }
+    }
+    for (let index = 0; index < dailyArrayOutcome.length; index++) {
+        let date = new Date(dailyArrayOutcome[index].date);
+
+        if(date.getMonth()==currentMonth&&date.getFullYear()==nowDate.getFullYear()){
+            totalPerBulanOutcome[0]=totalPerBulanOutcome[0]+dailyArrayOutcome[index].outcome;
+        }else if(date.getMonth()==lastMonth&&date.getFullYear()==nowDate.getFullYear()){
+            totalPerBulanOutcome[1]=totalPerBulanOutcome[1]+dailyArrayOutcome[index].outcome;
+        }
+    }
+
+    //merubah isi dari summary
+    document.getElementById('lastMonthOutcome').innerHTML="Last Month = Rp. "+totalPerBulanOutcome[1]
+    document.getElementById('currentMonthOutcome').innerHTML="This Month = Rp. "+totalPerBulanOutcome[0]
+    document.getElementById('lastMonthIncome').innerHTML="Last Month = Rp. "+totalPerBulanIncome[1]
+    document.getElementById('currentMonthIncome').innerHTML="This Month = Rp. "+totalPerBulanIncome[0]
 }
