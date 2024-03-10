@@ -174,6 +174,30 @@ function getLocalStorageData(sorted) {
         }); 
     }
 
+
+    return { dailyArrayIncome, dailyArrayOutcome };
+}
+
+//function untuk menampilkan chart setiap hari dalam 1 bulan
+function dailyGraph(){
+    const namaBulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+    //deklarasi array sebagai value dari sumbu x dan y dari graph nya
+    const xValues = [];
+    const yValuesIncome = [];
+    const yValuesOutcome = [];
+
+    // Menghapus chart sebelumnya apabila sudah ada (untuk prevent duplikasi chart)
+    if (myChart) {
+        myChart.destroy();
+    }
+
+    //ambil value dari input
+    var selectedMonth = document.getElementById("monthDropdown").value;
+    var selectedYear = document.getElementById("dailyGraphYear").value;
+
+    //memanggil function getLocalStorageData untuk mendapatkan data dari local storage
+    var{dailyArrayIncome, dailyArrayOutcome} = getLocalStorageData(true)
+
     return { dailyArrayIncome, dailyArrayOutcome };
 }
 
@@ -307,6 +331,9 @@ function monthlyGraph(){
     }
 
     var tableMonthly = $('#monthlyTable').DataTable();
+
+    //memanggil function getLocalStorageData untuk mendapatkan data dari local storage
+    var{dailyArrayIncome, dailyArrayOutcome} = getLocalStorageData(true)
 
     tableMonthly.clear();
 
@@ -645,6 +672,7 @@ function transactionHistoryTable() {
             }
         }
     }
+
     //membuat dataTable
     tableTrans.draw();
 }
