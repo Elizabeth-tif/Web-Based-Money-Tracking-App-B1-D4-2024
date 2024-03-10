@@ -1,3 +1,8 @@
+//nyoba dataTable
+document.addEventListener('DOMContentLoaded', function () {
+    let table = new DataTable('#myTable');
+});
+
 //shortcut untuk akses local storage
 let ls = window.localStorage;
 
@@ -86,7 +91,7 @@ function newIncome(){
     }
 
     //append ke array alltransaction agar pemasukan masuk ke transaction, dibuat juga objeknya
-    const transaction = {type:'income',date:vDate,amount:vIncome,category:'',notes:vNotes};
+    const transaction = {type:'income',date:vDate,amount:vIncome,category:'Income',notes:vNotes};
     arrayAllTransaction.push(transaction);
 
     //masukin data hasil array ke local storage
@@ -180,10 +185,9 @@ function dailyGraph(){
     const yValuesIncome = [];
     const yValuesOutcome = [];
 
-    // Menghapus chart sebelumnya apabila sudah ada (untuk prevent duplikasi chart)
-    if (myChart) {
-        myChart.destroy();
-    }
+    var tableDaily = $('#dailyTable').DataTable();
+
+    tableDaily.clear();
 
     //ambil value dari input
     var selectedMonth = document.getElementById("monthDropdown").value;
@@ -191,14 +195,6 @@ function dailyGraph(){
 
     //memanggil function getLocalStorageData untuk mendapatkan data dari local storage
     var{dailyArrayIncome, dailyArrayOutcome} = getLocalStorageData(true)
-
-    // Ambil objek incomeTable
-    var table = document.getElementById("dailyTable");
-
-    // menghapus table jika sudah ada agar tidak terjadi duplikasi / append
-    for(let i = table.rows.length - 1; i > 0; i--){
-        table.deleteRow(i);
-    }
 
     // mengkombinasikan array income dan outcome menjadi 1 array, lalu kemudian di sort berdasarkan date
     var combinedArray = [...dailyArrayIncome, ...dailyArrayOutcome];
@@ -241,28 +237,21 @@ function dailyGraph(){
 
             //var total = income - outcome
             let total = yValuesIncome[yValuesIncome.length - 1] - yValuesOutcome[yValuesOutcome.length - 1];
-
-            // membuat baris baru di posisi paling akhir
-            var row = table.insertRow(-1);
-
-            // membuat column baru di row yang baru dibuat
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            var cell4 = row.insertCell(3);
-
-            // Memasukkan data ke table yang baru
-            cell1.innerHTML = xValues[xValues.length - 1];  //date
-            cell2.innerHTML = yValuesIncome[yValuesIncome.length - 1];  //income
-            cell3.innerHTML = yValuesOutcome[yValuesOutcome.length - 1]; // outcome
-            cell4.innerHTML = total; //data total (income-outcome)
-            if(total<0){
-                cell4.style.backgroundColor = "red";
-            }else if(total>0){
-                cell4.style.backgroundColor = "green";
-            }
+            
+            var dateComponent = xValues[xValues.length - 1];
+            dateComponent = dateComponent.split('/')
+            var row = [
+                parseInt(dateComponent[0]),     //date
+                yValuesIncome[yValuesIncome.length - 1],
+                yValuesOutcome[yValuesOutcome.length - 1],
+                total
+            ];
+            
+            // Add the new row to the DatatableTrans
+            tableDaily.row.add(row);
         }
     }
+    tableDaily.draw();
 
     //pembuatan chart sesuai dengan data yang sudah ada
     myChart = new Chart("dailyChart", {
@@ -291,7 +280,14 @@ function dailyGraph(){
     });
 }
 
+
 //function untuk menampilkan chart berdasarkan 12 bulan dalam 1 tahun
+var tableMonthly = $('#monthlyTable').DataTable({
+    columnDefs: [
+        { targets: [0], orderable: false } // replace 0 with the index of the column you want to disable sorting for
+    ],
+    order: []
+});
 function monthlyGraph(){
     //deklarasi array untuk value y graphic nya, dan untuk table juga
     const yValuesIncome = [];
@@ -310,16 +306,12 @@ function monthlyGraph(){
         myChart.destroy();
     }
 
+    var tableMonthly = $('#monthlyTable').DataTable();
+
+    tableMonthly.clear();
+
     //memanggil function getLocalStorageData untuk mendapatkan data dari local storage
     var{dailyArrayIncome, dailyArrayOutcome} = getLocalStorageData(true)
-
-    //Ambil elemen table untuk table bulanan
-    var table = document.getElementById("monthlyTable");
-
-    // Pembersihan table agar tidak append
-    for(let i = table.rows.length - 1; i > 0; i--){
-        table.deleteRow(i);
-    }
 
     //Pengisian array total income per bulan
     var idx = 0;
@@ -360,26 +352,15 @@ function monthlyGraph(){
         //deklarasi var total = total income - total outcome
         let total = yValuesIncome[index] - yValuesOutcome[index]; 
 
-        // Membuat baris baru di posisi paling akhir
-        var row = table.insertRow(-1);
-
-        // membuat column baru di row yang baru dibuat
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        var cell4 = row.insertCell(3);
-
-        // Memasukkan data ke table
-        cell1.innerHTML = xValues[index];           //data date
-        cell2.innerHTML = yValuesIncome[index];     //data income
-        cell3.innerHTML = yValuesOutcome[index];    //data outcome
-        cell4.innerHTML = total;   //data total (income-outcome)
-        if(total<0){
-            cell4.style.backgroundColor = "red";
-        }else if(total>0){
-            cell4.style.backgroundColor = "green";
-        }
+        var row = [
+            xValues[index],
+            yValuesIncome[index],
+            yValuesOutcome[index],
+            total
+        ]
+        tableMonthly.row.add(row)
     }
+    tableMonthly.draw();
 
     //pembuatan chart
     myChart = new Chart("monthlyChart", {
@@ -501,11 +482,116 @@ function expenseGraph(){
     });
 }
 
-//function untuk menampilkan tabel history transaksi
+// Fungsi untuk membuat dan append element transaksi
+function appendTransactionElements(containerId, transactions) {
+    // ambil container dimana akan dilakukan append
+    const container = document.getElementById(containerId);
+
+    // melakukan clear ke container yang sudah ada
+    container.innerHTML = '';
+
+    // melimit atau membatasi transaksi yang muncul di home hanya 5 buah
+    const limitedTransactions = transactions.slice(0, 5);
+
+    // iterasi untuk setiap transaksi, setiap iterasi akan membuat div baru
+    limitedTransactions.forEach(transaction => {
+        const div = document.createElement('div');
+        div.classList.add('transaction');
+
+        // buat dan append image berdasarkan kategori
+        const img = document.createElement('img');
+        img.src = getCategoryIcon(transaction.category);        //memanggil fungsi getCategoryIcon
+        img.classList.add('icon');
+        div.appendChild(img);
+
+        // buat dan append span element untuk kategori, notes, jumlah, dan tanggal
+        const spanCategory = document.createElement('span');
+        spanCategory.classList.add('category');
+        spanCategory.textContent = transaction.category;
+        div.appendChild(spanCategory);
+
+        const spanDescription = document.createElement('span');
+        spanDescription.classList.add('notes');
+        spanDescription.textContent = transaction.notes;
+        div.appendChild(spanDescription);
+
+        const spanExpense = document.createElement('span');
+        spanExpense.classList.add('expense');
+        spanExpense.textContent = "Rp. " + transaction.amount;
+        div.appendChild(spanExpense);
+
+        const formattedDate = new Date(transaction.date).toLocaleDateString();
+        const spanDate = document.createElement('span');
+        spanDate.classList.add('date');
+        spanDate.textContent = formattedDate;
+        div.appendChild(spanDate);
+
+        // append div transaction ke container
+        container.appendChild(div);
+    });
+}
+
+// function untuk mendapatkan icon sesuai kategori
+function getCategoryIcon(category) {
+    switch (category) {
+        case 'Gadget':
+            return 'icons/gamepad.svg'
+        case 'Hiburan':
+            return 'icons/gamepad.svg'
+        case 'Income':
+            return 'icons/wallet.svg'
+        case 'Kesehatan':
+            return 'icons/medical.svg'
+        case 'Makanan & Minuman':
+            return 'icons/food.svg';
+        case 'Pendidikan':
+            return 'icons/education.svg'
+        case 'Transportasi':
+            return 'icons/transportation.svg';
+        default:
+            return 'icons/plus.svg'; // Default icon
+    }
+}
+
+// Menampilkan transaction history pada home page dengan jumlah max 5 transaksi
 function transactionHistory() {
+    // Mendapatkan value dari dropdown
+    var type = document.getElementById("transHistDrop").value;
+
+    // mengambil nilai dari local storage
+    var transactionArray = ls.getItem('transaction');
+
+    // parsing data, dari string menjadi type
+    if (transactionArray && transactionArray.length > 0) {
+        transactionArray = JSON.parse(transactionArray);
+    } else {
+        transactionArray = [];
+    }
+
+    // Sort berdasarkan date (descending)
+    transactionArray.sort(function(a, b) {
+        return new Date(a.date) - new Date(b.date);
+    });
+
+    // memanggil function untuk append transaction element untuk semua transaction
+    appendTransactionElements('transactionContainer', transactionArray);
+}
+
+//function untuk menampilkan tabel history transaksi
+// inisialisasi DataTable agar tidak bisa dilakukan sort berdasarkan kolom pertama
+var tableTrans = $('#transHistTable').DataTable({
+    columnDefs: [
+        { targets: [0], orderable: false } // replace 0 with the index of the column you want to disable sorting for
+    ],
+    order: []
+});
+function transactionHistoryTable() {
     //mendapatkan value dropdown
     var type = document.getElementById("transHistDrop").value;
-    var table = document.getElementById("transHistTable");
+    
+
+    // pembersihan dataTable agar tidak append
+    tableTrans.clear();
 
     //memasukkan data dari local storage dengan key "transaction" ke array
     var transactionArray = ls.getItem('transaction');
@@ -519,70 +605,48 @@ function transactionHistory() {
 
     //sort berdasarkan date (ascending)
     transactionArray.sort(function(a, b) {
-        return new Date(a.date) - new Date(b.date)
+        return new Date(b.date) - new Date(a.date)
     });
-
-    // Pembersihan table agar tidak append
-    for (let i = table.rows.length - 1; i > 0; i--) {
-        table.deleteRow(i);
-    }
+    console.log(transactionArray)
 
     //apabila type yang dipilih di dropdown adalah outcome, maka menampilkan tabel outcome
     if (type == 'outcome') {
-        // Menambahkan th baru bernama "Category" di samping th "amount"
-        var categoryCell = table.rows[0].insertCell(2);
-        categoryCell.innerHTML = "Category";
-
         //for loop untuk menampilkan tabel outcome
         for (let index = 0; index < transactionArray.length; index++) {
+            date = new Date(transactionArray[index].date)
             //pengecekan apabila type nya adalah outcome
             if(transactionArray[index].type=='outcome'){
-                // Membuat baris baru di posisi paling akhir
-                var row = table.insertRow(-1);
-                // membuat column baru di row yang baru dibuat
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-                var cell3 = row.insertCell(2);
-                var cell4 = row.insertCell(3);
-
-                //mengisi column yang dibuat dengan data
-                var date = new Date(transactionArray[index].date);
-                cell1.innerHTML=date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
-                cell2.innerHTML=transactionArray[index].amount;
-                cell3.innerHTML=transactionArray[index].category;
-                cell4.innerHTML=transactionArray[index].notes;
+                // membuat row baru
+                var row = [
+                    date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear(),     //date
+                    transactionArray[index].amount,
+                    transactionArray[index].category,
+                    transactionArray[index].notes
+                ];
+                // memasukkan row yang sudah dibuat ke dataTable
+                tableTrans.row.add(row);
             }
-            
         }
-
-    } else {
-        // Menghapus th "category" apabila type nya adalah "income"
-        var categoryCellIndex = 2;
-        var headerRow = table.rows[0];
-        if (categoryCellIndex < headerRow.cells.length) {
-            headerRow.deleteCell(categoryCellIndex);
-        }
-
+    } else{
         //for loop untuk menampilkan tabel transaksi type income
         for (let index = 0; index < transactionArray.length; index++) {
+            date = new Date(transactionArray[index].date)
             //pengecekan tipe sama atau tidaknya dengan 'income
             if(transactionArray[index].type=='income'){
-
-                // Membuat baris baru di posisi paling akhir
-                var row = table.insertRow(-1);
-                // membuat column baru di row yang baru dibuat
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-                var cell3 = row.insertCell(2);
-
-                //mengisi column yang tadi dibuat dengan data yang sesuai field
-                var date = new Date(transactionArray[index].date);
-                cell1.innerHTML=date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
-                cell2.innerHTML=transactionArray[index].amount;
-                cell3.innerHTML=transactionArray[index].notes;
+                // membuat row baru
+                var row = [
+                    date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear(),     //date
+                    transactionArray[index].amount,
+                    transactionArray[index].category,
+                    transactionArray[index].notes
+                ];
+                // memasukkan row yang sudah dibuat ke dataTable
+                tableTrans.row.add(row);
             }
         }
     }
+    //membuat dataTable
+    tableTrans.draw();
 }
 
 //function untuk menampilkan saldo saat ini, dihitung dari awal tahun
