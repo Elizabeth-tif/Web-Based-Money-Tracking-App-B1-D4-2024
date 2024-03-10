@@ -161,6 +161,7 @@ header {
   height: 12px;
   border-radius: 12px;
   background-color: #d6d5dc;
+  overflow: hidden;
 }
 
 .progressBar .progress {
