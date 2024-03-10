@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+    <script src="js/incometbl.js"></script>
+    <title>Money Tracking App</title>
+  </head>
+  <body>
+    <nav>
+      <h2>B1</h2>
+      <ul class="navigation">
+        <li><a href="index.html"><img src="img/icons/house.svg" class="icon"></a></li>
+        <li><a href="chart.html"><img src="img/icons/chart.svg" class="icon"></a></li>
+        <li><a href="#"><img src="img/icons/plus.svg" class="icon"></a></li>
+        <li><a href="outcome.html"><img src="img/icons/minus.svg" class="icon"></a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <!-- Grid -->
+      <header>
+        <!-- Flex -->
+        <h2>Good Morning, <span class="user">User</span>!</h2>
+        <!-- <ul>
+          <li><a href="#"><</a></li>
+          <li><div class="greyBox">Jan</div></li>
+          <li><div class="greyBox">1900</div></li>
+          <li><a href="#">></a></li>
+        </ul> -->
+      </header>
+
+      <div class="chart">
+        <div class="header">
+          <h3>Statistics</h3>
+          <a href="#">View All</a>
+        </div>
+        <div class="greyBox">
+            <table id="incometable" class="stripe" style="width:100%">
+                  <thead>
+                  <th>Day</th>
+                  <th>Month</th>
+                  <th>Year</th>
+                  <th>Income</th>
+                  </thead>        
+              </table>
+          </div>
+      </div>
+      <div class="summaries">
+        <h3>Summary</h3>
+        <div class="greyBox">
+          <div id="expense" class="summary">
+            <img src="img/icons/money.svg" class="icon">
+            <span class="header">Total expenses</span>
+            <span class="lastMonth">Last Month</span>
+            <span class="thisMonth">This Month</span>
+            <span class="lastMoney">-Rp. 4,000</span>
+            <span class="thisMoney">-Rp. 2,000</span>
+            <div class="button"><a href="#">></a></div>
+          </div>
+          <div id="income" class="summary">
+            <img src="img/icons/wallet.svg" class="icon">
+            <span class="header">Total incomes</span>
+            <span class="lastMonth">Last Month</span>
+            <span class="thisMonth">This Month</span>
+            <span class="lastMoney">+Rp. 4,000</span>
+            <span class="thisMoney">+Rp. 2,000</span>
+            <div class="button"><a href="#">></a></div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </main>
+  </body>
+</html>
