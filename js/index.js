@@ -37,11 +37,11 @@ addIncomeBtn2.addEventListener("click", function () {
 
 let ls = window.localStorage;
 var myChart;
-
+let username = ls.getItem("loggedInUser").toString()
 //memasukkan data dari local storage ke array
-var arrayIncome = ls.getItem("income"); //array data income (untuk rekap)
-var arrayOutcome = ls.getItem("outcome"); //array data outcome (untuk rekap)
-var arrayAllTransaction = ls.getItem("transaction"); //array seluruh transaksi (untuk transaction)
+var arrayIncome = ls.getItem("income"+username); //array data income (untuk rekap)
+var arrayOutcome = ls.getItem("outcome"+username); //array data outcome (untuk rekap)
+var arrayAllTransaction = ls.getItem("transaction"+username); //array seluruh transaksi (untuk transaction)
 
 //set min dan max tanggal yang bisa diinput
 let minDate = new Date(2020, 0, 1); //min date = 01-01-2023
@@ -52,6 +52,8 @@ document.forms["incomeForm"]["date"].setAttribute("min", minDateString);
 document.forms["incomeForm"]["date"].setAttribute("max", maxDateString);
 document.forms["outcomeForm"]["date"].setAttribute("min", minDateString);
 document.forms["outcomeForm"]["date"].setAttribute("max", maxDateString);
+
+
 
 //parsing data dari local storage, yang asalnya array jadi bertype, jika key local storage masih kosong, diisi array kosong
 if (arrayIncome && arrayIncome.length > 0) {
@@ -87,21 +89,24 @@ arrayAllTransaction.sort(function (a, b) {
 // if (!user) {
 //   window.location.href = "signin.html";
 // }
-
-// let span = document.getElementsByClassName("user");
-// for (let i = 0; i < span.length; i++) {
-//   span[i].innerHTML = user.username;
-// }
 /*=============================== END LOGIN USER =================================*/
+
 expenseGraph();
 summary();
 currentSaldo();
+transactionHistory();
+
+// function untuk log out (menghapus item loggedInUser dari local storage)
+function logout() {
+  ls.removeItem("loggedInUser");
+  window.location.href = "signin.html";
+}
 
 //function untuk mengambil nilai dari local storage
 function getLocalStorageData(sorted) {
   //ambil data array dari local storage yang fieldnya namanya income dan outcome
-  var dailyArrayIncome = ls.getItem("income");
-  var dailyArrayOutcome = ls.getItem("outcome");
+  var dailyArrayIncome = ls.getItem("income"+username);
+  var dailyArrayOutcome = ls.getItem("outcome"+username);
 
   //parsing dari local storage, asalnya String jadi menjadi type
   if (dailyArrayIncome && dailyArrayIncome.length > 0) {
@@ -179,7 +184,7 @@ function expenseGraph() {
   }
 
   //pengambilan value dari local storage dengan key transaction untuk mengambil semua transaksi
-  var transactionArray = ls.getItem("transaction");
+  var transactionArray = ls.getItem("transaction"+username);
 
   //parsing dari local storage, asalnya String jadi menjadi type
   if (transactionArray && transactionArray.length > 0) {
@@ -288,8 +293,8 @@ function newIncome() {
   arrayAllTransaction.push(transaction);
 
   //masukin data hasil array ke local storage
-  ls.setItem("income", JSON.stringify(arrayIncome));
-  ls.setItem("transaction", JSON.stringify(arrayAllTransaction));
+  ls.setItem("income"+username, JSON.stringify(arrayIncome));
+  ls.setItem("transaction"+username, JSON.stringify(arrayAllTransaction));
 }
 
 //function untuk mencatat pengeluaran baru
@@ -329,8 +334,8 @@ function newOutcome() {
   arrayAllTransaction.push(transaction);
 
   //masukin data hasil array ke local storage
-  ls.setItem("outcome", JSON.stringify(arrayOutcome));
-  ls.setItem("transaction", JSON.stringify(arrayAllTransaction));
+  ls.setItem("outcome"+username, JSON.stringify(arrayOutcome));
+  ls.setItem("transaction"+username, JSON.stringify(arrayAllTransaction));
 }
 
 //fungsi untuk menampilkan summary total expenses dan total incomes di homepage
@@ -381,19 +386,27 @@ function summary() {
 
   //merubah isi dari summary
   document.getElementById("lastMonthOutcome").innerHTML =
-    "- Rp. " + new Intl.NumberFormat('en-US').format(totalPerBulanOutcome[1])+".00";
+    "- Rp. " +
+    new Intl.NumberFormat("en-US").format(totalPerBulanOutcome[1]) +
+    ".00";
   document.getElementById("thisMonthOutcome").innerHTML =
-    "- Rp. " + new Intl.NumberFormat('en-US').format(totalPerBulanOutcome[0])+".00";
+    "- Rp. " +
+    new Intl.NumberFormat("en-US").format(totalPerBulanOutcome[0]) +
+    ".00";
   document.getElementById("lastMonthIncome").innerHTML =
-    "+ Rp. " + new Intl.NumberFormat('en-US').format(totalPerBulanIncome[1])+".00";
+    "+ Rp. " +
+    new Intl.NumberFormat("en-US").format(totalPerBulanIncome[1]) +
+    ".00";
   document.getElementById("thisMonthIncome").innerHTML =
-    "+ Rp. " + new Intl.NumberFormat('en-US').format(totalPerBulanIncome[0])+".00";
+    "+ Rp. " +
+    new Intl.NumberFormat("en-US").format(totalPerBulanIncome[0]) +
+    ".00";
 }
 
 //function untuk menampilkan saldo saat ini, dihitung dari awal tahun
-function currentSaldo(){
+function currentSaldo() {
   //memanggil function getLocalStorageData untuk mendapatkan data dari local storage
-  var{dailyArrayIncome, dailyArrayOutcome} = getLocalStorageData(true)
+  var { dailyArrayIncome, dailyArrayOutcome } = getLocalStorageData(true);
 
   //penampung totalIncome, totalOutcome, dan total
   var totalIncome = 0;
@@ -404,23 +417,123 @@ function currentSaldo(){
   let showTotal = 0;
   //menampung total income
   for (let index = 0; index < dailyArrayIncome.length; index++) {
-      totalIncome = totalIncome + dailyArrayIncome[index].income;
+    totalIncome = totalIncome + dailyArrayIncome[index].income;
   }
 
   //menampung total outcome
   for (let index = 0; index < dailyArrayOutcome.length; index++) {
-      totalOutcome = totalOutcome + dailyArrayOutcome[index].outcome;
+    totalOutcome = totalOutcome + dailyArrayOutcome[index].outcome;
   }
   //total = total income - total outcome
-  total = totalIncome-totalOutcome;
-  showIncome = new Intl.NumberFormat('en-US').format(totalIncome)+".00"
-  showOutcome = new Intl.NumberFormat('en-US').format(totalOutcome)+".00"
-  showTotal = new Intl.NumberFormat('en-US').format(total)+".00"
+  total = totalIncome - totalOutcome;
+  showIncome = new Intl.NumberFormat("en-US").format(totalIncome) + ".00";
+  showOutcome = new Intl.NumberFormat("en-US").format(totalOutcome) + ".00";
+  showTotal = new Intl.NumberFormat("en-US").format(total) + ".00";
   //agar dapat terlihat di web
-  document.getElementById('currentBalance1').innerHTML=showTotal
-  document.getElementById('currentBalance2').innerHTML="Rp. "+ showTotal
+  document.getElementById("currentBalance1").innerHTML = showTotal;
+  document.getElementById("currentBalance2").innerHTML = "Rp. " + showTotal;
   // document.getElementById('totalIncome').innerHTML=showIncome
   // document.getElementById('totalOutcome').innerHTML=showOutcome
-  return 0
+  return 0;
 }
-currentSaldo()
+
+// Fungsi untuk membuat dan append element transaksi
+function appendTransactionElements(containerId, transactions) {
+  // ambil container dimana akan dilakukan append
+  const container = document.getElementById(containerId);
+
+  // melakukan clear ke container yang sudah ada
+  container.innerHTML = "";
+
+  // melimit atau membatasi transaksi yang muncul di home hanya 5 buah
+  const limitedTransactions = transactions.slice(0, 5);
+
+  // iterasi untuk setiap transaksi, setiap iterasi akan membuat div baru
+  limitedTransactions.forEach((transaction) => {
+    const div = document.createElement("div");
+    div.classList.add("transaction");
+
+    // buat dan append image berdasarkan kategori
+    const img = document.createElement("img");
+    img.src = getCategoryIcon(transaction.category); //memanggil fungsi getCategoryIcon
+    img.classList.add("icon");
+    div.appendChild(img);
+
+    // buat dan append span element untuk kategori, notes, jumlah, dan tanggal
+    const spanCategory = document.createElement("span");
+    spanCategory.classList.add("category");
+    if (transaction.category) {
+      spanCategory.textContent = transaction.category;
+    } else {
+      spanCategory.textContent = "Income";
+    }
+    div.appendChild(spanCategory);
+
+    const spanDescription = document.createElement("span");
+    spanDescription.classList.add("notes");
+    spanDescription.textContent = transaction.notes;
+    div.appendChild(spanDescription);
+
+    const spanExpense = document.createElement("span");
+    spanExpense.classList.add("expense");
+    spanExpense.textContent = "Rp. " + transaction.amount.toLocaleString() + ".00";
+    div.appendChild(spanExpense);
+
+    const formattedDate = new Date(transaction.date).toLocaleDateString();
+    const spanDate = document.createElement("span");
+    spanDate.classList.add("date");
+    spanDate.textContent = formattedDate;
+    div.appendChild(spanDate);
+
+    // append div transaction ke container
+    container.appendChild(div);
+  });
+}
+
+// function untuk mendapatkan icon sesuai kategori
+function getCategoryIcon(category) {
+  switch (category) {
+    case "Gadget":
+      return "img/icons/gadget.svg";
+    case "Hiburan":
+      return "img/icons/gamepad.svg";
+    case "Kebutuhan Pokok":
+      return "img/icons/bag.svg";
+    case "": // Income
+      return "img/icons/wallet-dark.svg";
+    case "Kesehatan":
+      return "img/icons/medical.svg";
+    case "Makanan & Minuman":
+      return "img/icons/food.svg";
+    case "Pendidikan":
+      return "img/icons/education.svg";
+    case "Transportasi":
+      return "img/icons/transportation.svg";
+    default:
+      return "img/icons/plus-dark.svg"; // Default icon
+  }
+}
+
+// Menampilkan transaction history pada home page dengan jumlah max 5 transaksi
+function transactionHistory() {
+  // Mendapatkan value dari dropdown
+  // var type = document.getElementById("transHistDrop").value;
+
+  // mengambil nilai dari local storage
+  var transactionArray = ls.getItem("transaction"+username);
+
+  // parsing data, dari string menjadi type
+  if (transactionArray && transactionArray.length > 0) {
+    transactionArray = JSON.parse(transactionArray);
+  } else {
+    transactionArray = [];
+  }
+
+  // Sort berdasarkan date (descending)
+  transactionArray.sort(function (a, b) {
+    return new Date(a.date) - new Date(b.date);
+  });
+
+  // memanggil function untuk append transaction element untuk semua transaction
+  appendTransactionElements("history", transactionArray);
+}

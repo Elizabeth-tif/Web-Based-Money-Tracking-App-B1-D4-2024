@@ -34,15 +34,16 @@ function signIn(e) {
     //     );
 
     let index = users.findIndex(data => 
-        data.username.toLowerCase() == username.toLowerCase() && data.pwd.toLowerCase() == pwd
+        data.username == username && data.pwd == pwd
     );
 
-    localStorage.setItem('loggedInUser', index);
+    // localStorage.setItem('loggedInUser', index);
 
     if(index === -1){
         alert("Incorrect login credentials");
     }
     else{
+        localStorage.setItem('loggedInUser', users[index].username);
         location.href = "index.html";
     }
     e.preventDefault();
