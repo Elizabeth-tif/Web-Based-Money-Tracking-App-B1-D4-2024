@@ -1,5 +1,6 @@
 let ls = window.localStorage;
 var myChart;
+let username = ls.getItem("loggedInUser").toString()
 
 //set min dan max tanggal yang bisa diinput
 let minDate = new Date(2020, 0, 1); //min date = 01-01-2023
@@ -29,8 +30,8 @@ document
 //function untuk mengambil nilai dari local storage
 function getLocalStorageData(sorted) {
   //ambil data array dari local storage yang fieldnya namanya income dan outcome
-  var dailyArrayIncome = ls.getItem("income");
-  var dailyArrayOutcome = ls.getItem("outcome");
+  var dailyArrayIncome = ls.getItem("income"+username);
+  var dailyArrayOutcome = ls.getItem("outcome"+username);
 
   //parsing dari local storage, asalnya String jadi menjadi type
   if (dailyArrayIncome && dailyArrayIncome.length > 0) {
@@ -108,7 +109,7 @@ function expenseGraph() {
   }
 
   //pengambilan value dari local storage dengan key transaction untuk mengambil semua transaksi
-  var transactionArray = ls.getItem("transaction");
+  var transactionArray = ls.getItem("transaction"+username);
 
   //parsing dari local storage, asalnya String jadi menjadi type
   if (transactionArray && transactionArray.length > 0) {
