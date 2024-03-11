@@ -1,5 +1,3 @@
-//COPY HISTORY DEFAULT INCOME
-
 //shortcut untuk akses local storage
 let ls = window.localStorage;
 let username = ls.getItem("loggedInUser").toString()

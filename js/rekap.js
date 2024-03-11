@@ -1,4 +1,3 @@
-//COPY rekap js
 //max date = hari ini
 let maxDate = new Date();
 //set min dan max tahun yang bisa diinput
