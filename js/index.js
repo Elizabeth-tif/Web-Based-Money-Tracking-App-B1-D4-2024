@@ -431,7 +431,7 @@ function currentSaldo() {
   showTotal = new Intl.NumberFormat("en-US").format(total) + ".00";
   //agar dapat terlihat di web
   document.getElementById("currentBalance1").innerHTML = showTotal;
-  document.getElementById("currentBalance2").innerHTML = "Rp. " + showTotal;
+  // document.getElementById("currentBalance2").innerHTML = "Rp. " + showTotal;
   // document.getElementById('totalIncome').innerHTML=showIncome
   // document.getElementById('totalOutcome').innerHTML=showOutcome
   return 0;

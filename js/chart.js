@@ -1,5 +1,8 @@
 let ls = window.localStorage;
-var myChart;
+var pieChart;
+var dailyChart;
+var monthlyChart;
+var weeklyChart;
 let username = ls.getItem("loggedInUser").toString()
 
 //set min dan max tanggal yang bisa diinput
@@ -110,8 +113,8 @@ function expenseGraph() {
   const totalExpenseCat = new Array(6).fill(0); // Pembuatan array total income per bulan dengan size 12 dan isi dengan 0
 
   // Menghapus chart sebelumnya apabila sudah ada (untuk prevent duplikasi chart)
-  if (myChart) {
-    myChart.destroy();
+  if (pieChart) {
+    pieChart.destroy();
   }
 
   //pengambilan value dari local storage dengan key transaction untuk mengambil semua transaksi
@@ -164,7 +167,7 @@ function expenseGraph() {
   }
 
   //pembuatan pieChart untuk menampilkan pengeluaran per kategori dalam 1 bulan
-  myChart = new Chart("pieChart", {
+  pieChart = new Chart("pieChart", {
     type: "pie", //jenis chart
     data: {
       labels: xValues, //informasi per kategori
@@ -210,8 +213,8 @@ function dailyGraph() {
   const yValuesOutcome = [];
 
   // Menghapus chart sebelumnya apabila sudah ada (untuk prevent duplikasi chart)
-  if (myChart) {
-    myChart.destroy();
+  if (dailyChart) {
+    dailyChart.destroy();
   }
 
   //ambil value dari input
@@ -301,7 +304,7 @@ function dailyGraph() {
   }
 
   //pembuatan chart sesuai dengan data yang sudah ada
-  myChart = new Chart("dailyChart", {
+  dailyChart = new Chart("dailyChart", {
     type: "line", //tipe chartnya
     data: {
       labels: xValues, //array buat nilai x berupa date
@@ -361,8 +364,8 @@ function monthlyGraph() {
   var selectedYear = document.getElementById("monthlyGraphYear").value;
 
   // Menghapus chart sebelumnya apabila sudah ada (untuk prevent duplikasi chart)
-  if (myChart) {
-    myChart.destroy();
+  if (monthlyChart) {
+    monthlyChart.destroy();
   }
 
   //memanggil function getLocalStorageData untuk mendapatkan data dari local storage
@@ -443,7 +446,7 @@ function monthlyGraph() {
   }
 
   //pembuatan chart
-  myChart = new Chart("monthlyChart", {
+  monthlyChart = new Chart("monthlyChart", {
     type: "bar", //tipe chartnya
     data: {
       labels: xValues, //array buat nilai x
@@ -595,7 +598,7 @@ function weeklyGraph() {
   // tableWeekly.draw();
 
   //pembuatan chart sesuai dengan data yang sudah ada
-  myChart = new Chart("weeklyChart", {
+  weeklyChart = new Chart("weeklyChart", {
     type: "line", //tipe chartnya
     data: {
       labels: xValues, //array buat nilai x berupa date

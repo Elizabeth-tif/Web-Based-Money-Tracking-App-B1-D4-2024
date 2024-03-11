@@ -6,7 +6,7 @@ document.getElementById("recapYear").setAttribute("min", 2020);
 document.getElementById("recapYear").setAttribute("max", maxDate.getFullYear());
 
 let ls = window.localStorage;
-let username = ls.getItem("loggedInUser").toString()
+let username = ls.getItem("loggedInUser").toString();
 
 // $(document).ready( function () {
 //     $('#incometable').DataTable({
@@ -22,16 +22,16 @@ let username = ls.getItem("loggedInUser").toString()
 
 // Inisialisasi
 window.onload = function () {
-    dailyRecap();
-    weeklyRecap();
-    monthlyRecap();
-}
+  dailyRecap();
+  weeklyRecap();
+  monthlyRecap();
+};
 
 //function untuk mengambil nilai dari local storage
 function getLocalStorageData(sorted) {
   //ambil data array dari local storage yang fieldnya namanya income dan outcome
-  var dailyArrayIncome = ls.getItem("income"+username);
-  var dailyArrayOutcome = ls.getItem("outcome"+username);
+  var dailyArrayIncome = ls.getItem("income" + username);
+  var dailyArrayOutcome = ls.getItem("outcome" + username);
 
   //parsing dari local storage, asalnya String jadi menjadi type
   if (dailyArrayIncome && dailyArrayIncome.length > 0) {
@@ -60,8 +60,12 @@ function getLocalStorageData(sorted) {
 }
 
 //function untuk menampilkan chart setiap hari dalam 1 bulan
+var tableDaily = $("#dailyTable").DataTable({
+  search: {
+    return: true,
+  },
+});
 function dailyRecap() {
-  
   const namaBulan = [
     "Januari",
     "Februari",
@@ -81,10 +85,6 @@ function dailyRecap() {
   const yValuesIncome = [];
   const yValuesOutcome = [];
 
-  var tableDaily = $("#dailyTable").DataTable({
-    search:{
-    return : true },});
-  
   tableDaily.clear();
 
   //ambil value dari input
@@ -193,8 +193,8 @@ function dailyRecap() {
 
 //function untuk menampilkan table dan chart setiap minggu dalam 1 bulan
 var tableWeekly = $("#weeklyTable").DataTable({
-  search:{
-    return : true
+  search: {
+    return: true,
   },
   columnDefs: [{ targets: [1], orderable: false }],
 });
@@ -352,8 +352,8 @@ function weeklyRecap() {
 
 //function untuk menampilkan tabel berdasarkan 12 bulan dalam 1 tahun
 var tableMonthly = $("#monthlyTable").DataTable({
-  search:{
-    return : true
+  search: {
+    return: true,
   },
   columnDefs: [
     { targets: [0], orderable: false }, // replace 0 with the index of the column you want to disable sorting for
@@ -475,4 +475,3 @@ function monthlyRecap() {
   //     },
   //   });
 }
-
