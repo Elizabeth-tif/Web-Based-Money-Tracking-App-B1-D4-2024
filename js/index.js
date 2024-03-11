@@ -81,17 +81,18 @@ arrayAllTransaction.sort(function (a, b) {
   return new Date(a.date) - new Date(b.date);
 });
 
-let user = JSON.parse(ls.getItem("users"))[ls.getItem("loggedInUser")];
+/*=============================== BEGIN LOGIN USER =================================*/
+// let user = JSON.parse(ls.getItem("users"))[ls.getItem("loggedInUser")];
 
-if (!user) {
-  window.location.href = "signin.html";
-}
+// if (!user) {
+//   window.location.href = "signin.html";
+// }
 
-let span = document.getElementsByClassName("user");
-for (let i = 0; i < span.length; i++) {
-  span[i].innerHTML = user.username;
-}
-
+// let span = document.getElementsByClassName("user");
+// for (let i = 0; i < span.length; i++) {
+//   span[i].innerHTML = user.username;
+// }
+/*=============================== END LOGIN USER =================================*/
 expenseGraph();
 summary();
 currentSaldo();
@@ -380,37 +381,46 @@ function summary() {
 
   //merubah isi dari summary
   document.getElementById("lastMonthOutcome").innerHTML =
-    "-Rp. " + totalPerBulanOutcome[1];
+    "- Rp. " + new Intl.NumberFormat('en-US').format(totalPerBulanOutcome[1])+".00";
   document.getElementById("thisMonthOutcome").innerHTML =
-    "-Rp. " + totalPerBulanOutcome[0];
+    "- Rp. " + new Intl.NumberFormat('en-US').format(totalPerBulanOutcome[0])+".00";
   document.getElementById("lastMonthIncome").innerHTML =
-    "+Rp. " + totalPerBulanIncome[1];
+    "+ Rp. " + new Intl.NumberFormat('en-US').format(totalPerBulanIncome[1])+".00";
   document.getElementById("thisMonthIncome").innerHTML =
-    "+Rp. " + totalPerBulanIncome[0];
+    "+ Rp. " + new Intl.NumberFormat('en-US').format(totalPerBulanIncome[0])+".00";
 }
 
 //function untuk menampilkan saldo saat ini, dihitung dari awal tahun
-function currentSaldo() {
+function currentSaldo(){
   //memanggil function getLocalStorageData untuk mendapatkan data dari local storage
-  var { dailyArrayIncome, dailyArrayOutcome } = getLocalStorageData(true);
+  var{dailyArrayIncome, dailyArrayOutcome} = getLocalStorageData(true)
 
   //penampung totalIncome, totalOutcome, dan total
   var totalIncome = 0;
+  let showIncome = 0;
   var totalOutcome = 0;
+  let showOutcome = 0;
   var total = 0;
-
+  let showTotal = 0;
   //menampung total income
   for (let index = 0; index < dailyArrayIncome.length; index++) {
-    totalIncome = totalIncome + dailyArrayIncome[index].income;
+      totalIncome = totalIncome + dailyArrayIncome[index].income;
   }
 
   //menampung total outcome
   for (let index = 0; index < dailyArrayOutcome.length; index++) {
-    totalOutcome = totalOutcome + dailyArrayOutcome[index].outcome;
+      totalOutcome = totalOutcome + dailyArrayOutcome[index].outcome;
   }
   //total = total income - total outcome
-  total = totalIncome - totalOutcome;
-
+  total = totalIncome-totalOutcome;
+  showIncome = new Intl.NumberFormat('en-US').format(totalIncome)+".00"
+  showOutcome = new Intl.NumberFormat('en-US').format(totalOutcome)+".00"
+  showTotal = new Intl.NumberFormat('en-US').format(total)+".00"
   //agar dapat terlihat di web
-  document.getElementById("balance").innerHTML = total.toLocaleString();
+  document.getElementById('currentBalance1').innerHTML=showTotal
+  document.getElementById('currentBalance2').innerHTML="Rp. "+ showTotal
+  // document.getElementById('totalIncome').innerHTML=showIncome
+  // document.getElementById('totalOutcome').innerHTML=showOutcome
+  return 0
 }
+currentSaldo()
