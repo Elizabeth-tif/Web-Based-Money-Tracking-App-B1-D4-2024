@@ -175,3 +175,45 @@ select {
   padding: 10px;
 }
 /* Chart End */
+
+/* Responsive Breakpoint */
+@media screen and (max-width: 585px) {
+  nav {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: unset;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  nav ul {
+    width: 60%;
+    flex-direction: row;
+    align-content: center;
+    margin-top: 0;
+  }
+
+  nav ul li a {
+    padding-top: 4.8px;
+  }
+
+  main {
+    margin-top: 80px;
+    margin-left: 20px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  main {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  main {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

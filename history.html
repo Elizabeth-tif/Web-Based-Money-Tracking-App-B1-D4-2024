@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css"
+    />
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
     <link rel="stylesheet" href="css/history.css" />
@@ -27,13 +30,9 @@
         <li>
           <a href="rekap.html"
             ><img src="img/icons/rekap.svg" class="icon"
-          <a href="rekap.html"
-            ><img src="img/icons/rekap.svg" class="icon"
           /></a>
         </li>
         <li>
-          <a class="active" href="#"
-            ><img src="img/icons/history.svg" class="icon"
           <a class="active" href="#"
             ><img src="img/icons/history.svg" class="icon"
           /></a>
@@ -50,20 +49,22 @@
         <div class="header">
           <h2>Transactions History</h2>
         </div>
-        <select id="transHistDrop" onchange="transactionHistoryTable()">
-          <option value="">All</option>
-          <option value="outcome">Outcome</option>
-          <option value="income">Income</option>
-        </select>
-        <table id="transHistTable" class="stripe" style="width:100%">
-          <thead>
+        <div class="greyBox">
+          <select id="transHistDrop" onchange="transactionHistoryTable()">
+            <option value="">All</option>
+            <option value="outcome">Outcome</option>
+            <option value="income">Income</option>
+          </select>
+          <table id="transHistTable" class="stripe" style="width: 100%">
+            <thead>
               <th>Date</th>
               <th>Amount</th>
               <th>Category</th>
               <th>Notes</th>
-          </thead>
-      </table>
-      </div id="history">
+            </thead>
+          </table>
+        </div>
+      </div>
     </main>
   </body>
 
