@@ -4,10 +4,27 @@
   padding: 0;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 body {
   font-family: "Segoe UI", sans-serif;
 }
 
+.button{
+  color: #f6f5fc;
+  font-size: 14px;
+  background-color: #3b3f45;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 5px 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
 .greyBox {
   background-color: #f6f5fc;
   padding: 20px;

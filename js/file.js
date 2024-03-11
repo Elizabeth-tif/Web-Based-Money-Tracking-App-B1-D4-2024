@@ -66,24 +66,6 @@ function downloadCSV(csv, filename) {
     document.body.removeChild(downloadLink);
 }
 
-// Function to display saved transaction data
-function displaySavedTransaction() {
-    var savedTransactionDiv = document.getElementById('savedTransaction');
-    var transaction = JSON.parse(localStorage.getItem('transaction')) || [];
-
-    savedTransactionDiv.innerHTML = ''; // Clear previous content
-
-    if (transaction.length === 0) {
-        savedTransactionDiv.textContent = 'No transaction saved.';
-    } else {
-        transaction.forEach(function(transaction, index) {
-            var transactionString = `Transaction ${index + 1}: Type - ${transaction.type}, Date - ${transaction.date}, Amount - ${transaction.amount}, Category - ${transaction.category}, Notes - ${transaction.notes}`;
-            var p = document.createElement('p');
-            p.textContent = transactionString;
-            savedTransactionDiv.appendChild(p);
-        });
-    }
-}
 
 // Function to save transaction data from CSV to local storage
 function saveTransactionsFromCSV(csvContent) {
@@ -105,9 +87,6 @@ function saveTransactionsFromCSV(csvContent) {
             saveTransactionToLocalStorage(transaction);
         }
     });
-
-    // Update UI to display loaded transaction
-    displaySavedTransaction();
 }
 
 // Function to read CSV file
@@ -120,20 +99,6 @@ function readCSVFile(file) {
     };
     reader.readAsText(file);
 }
-
-// Event listener for form submission
-document.getElementById('transactionForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    var formData = new FormData(this);
-    var transaction = {};
-    formData.forEach(function(value, key){
-        transaction[key] = value;
-    });
-    // Save transaction to local storage
-    saveTransactionToLocalStorage(transaction);
-    // Update UI to display saved transaction
-    displaySavedTransaction();
-});
 
 // Event listener for exporting CSV
 document.getElementById('exportCSV').addEventListener('click', function() {
@@ -149,11 +114,6 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
         // Read CSV file
         readCSVFile(file);
     }
-});
-
-// Display saved transaction when the page loads
-window.addEventListener('load', function () {
-    displaySavedTransaction();
 });
 
 // Function to add new income
@@ -194,4 +154,8 @@ function newIncome(arrayIncome, arrayAllTransaction, ls) {
 
     // Prevent the page from refreshing after submission
     return false;
+}
+
+function displayFileName(input) {
+    document.getElementById('fileName').textContent = input.files[0].name;
 }

@@ -1,75 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css"
-    />
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
-    <link rel="stylesheet" href="css/history.css" />
 
-    <title>Transaction History</title>
-  </head>
-  <body>
-    <nav>
-      <h2>B1</h2>
-      <ul class="navigation">
-        <li>
-          <a href="index.html"
-            ><img src="img/icons/house.svg" class="icon"
-          /></a>
-        </li>
-        <li>
-          <a href="chart.html"
-            ><img src="img/icons/chart.svg" class="icon"
-          /></a>
-        </li>
-        <li>
-          <a href="rekap.html"
-            ><img src="img/icons/rekap.svg" class="icon"
-          /></a>
-        </li>
-        <li>
-          <a class="active" href="#"
-            ><img src="img/icons/history.svg" class="icon"
-          /></a>
-        </li>
-        <li>
-          <a href="budget.html"
-            ><img src="img/icons/target.svg" class="icon"
-          /></a>
-        </li>
-      </ul>
-    </nav>
-    <main>
-      <div class="history">
-        <div class="header">
-          <h2>Transactions History</h2>
-        </div>
-        <div class="greyBox">
-          <select id="transHistDrop" onchange="transactionHistoryTable()">
-            <option value="">All</option>
-            <option value="outcome">Outcome</option>
-            <option value="income">Income</option>
-          </select>
-          <table id="transHistTable" class="stripe" style="width: 100%">
-            <thead>
-              <th>Date</th>
-              <th>Amount</th>
-              <th>Category</th>
-              <th>Notes</th>
-            </thead>
-          </table>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+  <link rel="stylesheet" href="css/history.css" />
+
+  <title>Transaction History</title>
+</head>
+
+<body>
+  <nav>
+    <h2>B1</h2>
+    <ul class="navigation">
+      <li>
+        <a href="index.html"><img src="img/icons/house.svg" class="icon" /></a>
+      </li>
+      <li>
+        <a href="chart.html"><img src="img/icons/chart.svg" class="icon" /></a>
+      </li>
+      <li>
+        <a href="rekap.html"><img src="img/icons/rekap.svg" class="icon" /></a>
+      </li>
+      <li>
+        <a class="active" href="#"><img src="img/icons/history.svg" class="icon" /></a>
+      </li>
+      <li>
+        <a href="budget.html"><img src="img/icons/target.svg" class="icon" /></a>
+      </li>
+    </ul>
+  </nav>
+  <main>
+    <div class="history">
+      <div class="header">
+        <h2>Transactions History</h2>
+        <div class="wrapper">
+          <label for="fileInput" class="button">Import CSV</label>
+          <input type="file" id="fileInput" style="display: none;">
+          <span id="fileName"></span>
+          <button id="exportCSV" class="button">Export CSV</button>
         </div>
       </div>
-    </main>
-  </body>
+      <div class="greyBox">
+        <select id="transHistDrop" onchange="transactionHistoryTable()">
+          <option value="">All</option>
+          <option value="outcome">Outcome</option>
+          <option value="income">Income</option>
+        </select>
+        <table id="transHistTable" class="stripe" style="width: 100%">
+          <thead>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Notes</th>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </main>
+</body>
 
-  <script src="js/history.js"></script>
-  <script>
-    window.onload = transactionHistoryTable;
-  </script>
+<script src="js/history.js"></script>
+<script src="js/file.js"></script>
+<script>
+  window.onload = transactionHistoryTable;
+</script>
+
 </html>
