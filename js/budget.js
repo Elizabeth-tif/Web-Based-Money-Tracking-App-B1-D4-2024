@@ -28,7 +28,18 @@ function changeDataValue(category, value) {
   if (progressBar) {
     progressBar.style.setProperty('--progress-width', `${value}%`);
   } else {
-    console.error(`Progress element for category '${category}' not found.`);
+    console.error(`Progress bar element for category '${category}' not found.`);
+  }
+}
+
+// Function to update budget value (numbers )
+function changeBudgetValue(category, outcome, budget) {
+  const progressItem = document.querySelector(`.progressItem[data-name="${category}"]`);
+  if(progressItem) {
+    progressItem.querySelector('.budget').textContent = `Rp. ${budget}`;
+    progressItem.querySelector('.outcome').textContent = `Rp. ${outcome}`;
+  } else {
+    console.error(`Progress item for category '${category}' not found.`);
   }
 }
 
@@ -59,6 +70,14 @@ function calculateTotalOutcomeAndPercentages() {
   const makananMinumanPercentage = calculatePercentage(makananMinumanOutcome, makananMinumanBudget);
   const pendidikanPercentage = calculatePercentage(pendidikanOutcome, pendidikanBudget);
   const transportasiPercentage = calculatePercentage(transportasiOutcome, transportasiBudget);
+
+  changeBudgetValue('Gadget', gadgetOutcome, gadgetBudget);
+  changeBudgetValue('Kebutuhan Pokok', kebutuhanPokokOutcome, kebutuhanPokokBudget);
+  changeBudgetValue('Hiburan', hiburanOutcome, hiburanBudget);
+  changeBudgetValue('Kesehatan', kesehatanOutcome, kesehatanBudget);
+  changeBudgetValue('Makanan & Minuman', makananMinumanOutcome, makananMinumanBudget);
+  changeBudgetValue('Pendidikan', pendidikanOutcome, pendidikanBudget);
+  changeBudgetValue('Transportasi', transportasiOutcome, transportasiBudget);
 
   changeDataValue('Gadget', gadgetPercentage);
   changeDataValue('Kebutuhan Pokok', kebutuhanPokokPercentage);

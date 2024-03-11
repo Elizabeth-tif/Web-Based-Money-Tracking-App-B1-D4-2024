@@ -10,7 +10,7 @@ body {
 
 .greyBox {
   background-color: #f6f5fc;
-  padding: 10px;
+  padding: 20px;
   margin: 20px auto;
   border-radius: 15px;
   box-shadow: 0 0 15px rgba(59, 63, 69, 0.2);
@@ -44,6 +44,7 @@ a:hover {
   width: 30px;
   height: 30px;
 }
+
 /* Navigation */
 nav {
   position: fixed;
