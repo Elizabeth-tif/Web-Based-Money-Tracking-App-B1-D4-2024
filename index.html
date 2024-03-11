@@ -50,7 +50,10 @@
       <!-- Grid -->
       <header>
         <!-- Flex -->
-        <h2>Good Morning, <span class="user">User</span>!</h2>
+        <h2>
+          <span id="greeting">Good Morning</span>,
+          <span class="user">User</span>!
+        </h2>
         <script src="js/logout.js"></script>
         <button id="logOutButton" onclick="confirmLogout()">
           Log Out
@@ -183,12 +186,22 @@
         userElements[i].textContent = username;
       }
 
-      var monthlyTotal = localStorage.getItem("monthlyTotal"+username);
-      var value = localStorage.getItem("monthlyPercentage"+username);
-      
+      var currentDate = new Date();
+      const greeting = document.getElementById("greeting");
+      if (currentDate.getHours() >= 2 && currentDate.getHours() <= 10) {
+        greeting.innerHTML = "Good Morning";
+      } else if (currentDate.getHours() > 10 && currentDate.getHours() < 16) {
+        greeting.innerHTML = "Good Afternoon";
+      } else if (currentDate.getHours() >= 16 || currentDate.getHours() < 2){
+        greeting.innerHTML = "Good Evening";
+      }
+
+      var monthlyTotal = localStorage.getItem("monthlyTotal" + username);
+      var value = localStorage.getItem("monthlyPercentage" + username);
+
       value = value < 0 ? 0 : value;
       value = value > 100 ? 100 : value;
-      
+
       const monthlyTotalElement = document.getElementById("monthlyTotal");
       monthlyTotalElement.textContent = monthlyTotal;
       const progressBar = document.querySelector(
