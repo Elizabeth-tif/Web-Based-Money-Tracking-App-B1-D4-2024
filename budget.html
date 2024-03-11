@@ -1,71 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Money Tracking App</title>
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/budget.css" />
+  </head>
 
-</head>
+  <body>
+    <nav>
+      <h2>B1</h2>
+      <ul class="navigation">
+        <li>
+          <a href="index.html"
+            ><img src="img/icons/house.svg" class="icon"
+          /></a>
+        </li>
+        <li>
+          <a href="chart.html"
+            ><img src="img/icons/chart.svg" class="icon"
+          /></a>
+        </li>
+        <li>
+          <a href="rekap.html"
+            ><img src="img/icons/rekap.svg" class="icon"
+          /></a>
+        </li>
+        <li>
+          <a href="history.html"
+            ><img src="img/icons/history.svg" class="icon"
+          /></a>
+        </li>
+        <li>
+          <a class="active" href="#"
+            ><img src="img/icons/target.svg" class="icon"
+          /></a>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <div class="header">
+        <h2>Budget and Target</h2>
+      </div>
 
-<body>
-    <form id="budgetForm" onsubmit="store()">
-        <h1>Enter Your Target</h1>
+      <div class="containerWrapper">
+        <div class="container">
+          <form id="budgetForm" onsubmit="store()">
+            <h3>Input Your Budget</h3>
+            <label for="category">Select Category:</label>
+            <select id="category" required>
+              <option value="Gadget">Gadget</option>
+              <option value="Kebutuhan Pokok">Kebutuhan Pokok</option>
+              <option value="Hiburan">Hiburan</option>
+              <option value="Kesehatan">Kesehatan</option>
+              <option value="Makanan & Minuman">Makanan & Minuman</option>
+              <option value="Pendidikan">Pendidikan</option>
+              <option value="Transportasi">Transportasi</option>
+            </select>
 
-        <label for="category">Select Category:</label>
-        <select id="category" required>
-            <option value="Gadget">Gadget</option>
-            <option value="Kebutuhan Pokok">Kebutuhan Pokok</option>
-            <option value="Hiburan">Hiburan</option>
-            <option value="Kesehatan">Kesehatan</option>
-            <option value="Makanan & Minuman">Makanan & Minuman</option>
-            <option value="Pendidikan">Pendidikan</option>
-            <option value="Transportasi">Transportasi</option>
-        </select>
+            <label for="budget">Enter Budget:</label>
+            <input
+              type="number"
+              id="budget"
+              placeholder="Enter Amount"
+              required
+            />
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+        <div class="container">
+          <form id="budgetForm" onsubmit="store()">
+            <h3>Input Your Yearly Target</h3>
 
-        <label for="target">Enter Target:</label>
-        <input type="number" id="target" placeholder="Enter Amount" required>
+            <label for="budget">Enter Target:</label>
+            <input
+              type="number"
+              id="budget"
+              placeholder="Enter Amount"
+              required
+            />
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+      </div>
 
-        <input type="submit" value="Submit">
-    </form>
+      <div class="greyBox">
+        <h3>Budget Limit</h3>
+        <div class="progressItem" data-name="Gadget">
+          <div class="textWrapper">
+            <h4>Gadget</h4>
+            <p>
+              <span class="outcome">Rp. 0</span> /
+              <span class="budget">Rp. 0</span>
+            </p>
+          </div>
+          <div class="progressBar">
+            <div class="progress" data-name="Gadget"></div>
+          </div>
+        </div>
 
-    <h1>Gadget</h1>
-    <div class="progressBar">
-        <div class="progress" data-name="Gadget"></div>
-    </div>
+        <div class="progressItem" data-name="Kebutuhan Pokok">
+          <div class="textWrapper">
+            <h4>Kebutuhan Pokok</h4>
+            <p>
+              <span class="outcome">Rp. 0</span> /
+              <span class="budget">Rp. 0</span>
+            </p>
+          </div>
+          <div class="progressBar">
+            <div class="progress" data-name="Kebutuhan Pokok"></div>
+          </div>
+        </div>
 
-    <h1>Kebutuhan Pokok</h1>
-    <div class="progressBar">
-        <div class="progress" data-name="Kebutuhan Pokok"></div>
-    </div>
+        <div class="progressItem" data-name="Hiburan">
+          <div class="textWrapper">
+            <h4>Hiburan</h4>
+            <p>
+              <span class="outcome">Rp. 0</span> /
+              <span class="budget">Rp. 0</span>
+            </p>
+          </div>
+          <div class="progressBar">
+            <div class="progress" data-name="Hiburan"></div>
+          </div>
+        </div>
 
-    <h1>Hiburan</h1>
-    <div class="progressBar">
-        <div class="progress" data-name="Hiburan"></div>
-    </div>
+        <div class="progressItem" data-name="Kesehatan">
+          <div class="textWrapper">
+            <h4>Kesehatan</h4>
+            <p>
+              <span class="outcome">Rp. 0</span> /
+              <span class="budget">Rp. 0</span>
+            </p>
+          </div>
+          <div class="progressBar">
+            <div class="progress" data-name="Kesehatan"></div>
+          </div>
+        </div>
 
-    <h1>Kesehatan</h1>
-    <div class="progressBar">
-        <div class="progress" data-name="Kesehatan"></div>
-    </div>
+        <div class="progressItem" data-name="Makanan & Minuman">
+          <div class="textWrapper">
+            <h4>Makanan & Minuman</h4>
+            <p>
+              <span class="outcome">Rp. 0</span> /
+              <span class="budget">Rp. 0</span>
+            </p>
+          </div>
+          <div class="progressBar">
+            <div class="progress" data-name="Makanan & Minuman"></div>
+          </div>
+        </div>
 
-    <h1>Makanan & Minuman</h1>
-    <div class="progressBar">
-        <div class="progress" data-name="Makanan & Minuman"></div>
-    </div>
+        <div class="progressItem" data-name="Pendidikan">
+          <div class="textWrapper">
+            <h4>Pendidikan</h4>
+            <p>
+              <span class="outcome">Rp. 0</span> /
+              <span class="budget">Rp. 0</span>
+            </p>
+          </div>
+          <div class="progressBar">
+            <div class="progress" data-name="Pendidikan"></div>
+          </div>
+        </div>
 
-    <h1>Pendidikan</h1>
-    <div class="progressBar">
-        <div class="progress" data-name="Pendidikan"></div>
-    </div>
-
-    <h1>Transportasi</h1>
-    <div class="progressBar">
-        <div class="progress" data-name="Transportasi"></div>
-    </div>
-
-    <script src="js/budget.js"></script>
-</body>
-
+        <div class="progressItem" data-name="Transportasi">
+          <div class="textWrapper">
+            <h4>Transportasi</h4>
+            <p>
+              <span class="outcome">Rp. 0</span> /
+              <span class="budget">Rp. 0</span>
+            </p>
+          </div>
+          <div class="progressBar">
+            <div class="progress" data-name="Transportasi"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src="js/budget.js"></script>
 </html>

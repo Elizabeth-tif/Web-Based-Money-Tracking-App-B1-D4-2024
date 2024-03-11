@@ -384,19 +384,27 @@ function summary() {
 
   //merubah isi dari summary
   document.getElementById("lastMonthOutcome").innerHTML =
-    "- Rp. " + new Intl.NumberFormat('en-US').format(totalPerBulanOutcome[1])+".00";
+    "- Rp. " +
+    new Intl.NumberFormat("en-US").format(totalPerBulanOutcome[1]) +
+    ".00";
   document.getElementById("thisMonthOutcome").innerHTML =
-    "- Rp. " + new Intl.NumberFormat('en-US').format(totalPerBulanOutcome[0])+".00";
+    "- Rp. " +
+    new Intl.NumberFormat("en-US").format(totalPerBulanOutcome[0]) +
+    ".00";
   document.getElementById("lastMonthIncome").innerHTML =
-    "+ Rp. " + new Intl.NumberFormat('en-US').format(totalPerBulanIncome[1])+".00";
+    "+ Rp. " +
+    new Intl.NumberFormat("en-US").format(totalPerBulanIncome[1]) +
+    ".00";
   document.getElementById("thisMonthIncome").innerHTML =
-    "+ Rp. " + new Intl.NumberFormat('en-US').format(totalPerBulanIncome[0])+".00";
+    "+ Rp. " +
+    new Intl.NumberFormat("en-US").format(totalPerBulanIncome[0]) +
+    ".00";
 }
 
 //function untuk menampilkan saldo saat ini, dihitung dari awal tahun
-function currentSaldo(){
+function currentSaldo() {
   //memanggil function getLocalStorageData untuk mendapatkan data dari local storage
-  var{dailyArrayIncome, dailyArrayOutcome} = getLocalStorageData(true)
+  var { dailyArrayIncome, dailyArrayOutcome } = getLocalStorageData(true);
 
   //penampung totalIncome, totalOutcome, dan total
   var totalIncome = 0;
@@ -407,24 +415,24 @@ function currentSaldo(){
   let showTotal = 0;
   //menampung total income
   for (let index = 0; index < dailyArrayIncome.length; index++) {
-      totalIncome = totalIncome + dailyArrayIncome[index].income;
+    totalIncome = totalIncome + dailyArrayIncome[index].income;
   }
 
   //menampung total outcome
   for (let index = 0; index < dailyArrayOutcome.length; index++) {
-      totalOutcome = totalOutcome + dailyArrayOutcome[index].outcome;
+    totalOutcome = totalOutcome + dailyArrayOutcome[index].outcome;
   }
   //total = total income - total outcome
-  total = totalIncome-totalOutcome;
-  showIncome = new Intl.NumberFormat('en-US').format(totalIncome)+".00"
-  showOutcome = new Intl.NumberFormat('en-US').format(totalOutcome)+".00"
-  showTotal = new Intl.NumberFormat('en-US').format(total)+".00"
+  total = totalIncome - totalOutcome;
+  showIncome = new Intl.NumberFormat("en-US").format(totalIncome) + ".00";
+  showOutcome = new Intl.NumberFormat("en-US").format(totalOutcome) + ".00";
+  showTotal = new Intl.NumberFormat("en-US").format(total) + ".00";
   //agar dapat terlihat di web
-  document.getElementById('currentBalance1').innerHTML=showTotal
-  document.getElementById('currentBalance2').innerHTML="Rp. "+ showTotal
+  document.getElementById("currentBalance1").innerHTML = showTotal;
+  document.getElementById("currentBalance2").innerHTML = "Rp. " + showTotal;
   // document.getElementById('totalIncome').innerHTML=showIncome
   // document.getElementById('totalOutcome').innerHTML=showOutcome
-  return 0
+  return 0;
 }
 
 // Fungsi untuk membuat dan append element transaksi
@@ -453,9 +461,9 @@ function appendTransactionElements(containerId, transactions) {
     const spanCategory = document.createElement("span");
     spanCategory.classList.add("category");
     if (transaction.category) {
-        spanCategory.textContent = transaction.category;
+      spanCategory.textContent = transaction.category;
     } else {
-        spanCategory.textContent = "Income";
+      spanCategory.textContent = "Income";
     }
     div.appendChild(spanCategory);
 
@@ -466,7 +474,7 @@ function appendTransactionElements(containerId, transactions) {
 
     const spanExpense = document.createElement("span");
     spanExpense.classList.add("expense");
-    spanExpense.textContent = "Rp. " + transaction.amount;
+    spanExpense.textContent = "Rp. " + transaction.amount.toLocaleString() + ".00";
     div.appendChild(spanExpense);
 
     const formattedDate = new Date(transaction.date).toLocaleDateString();
@@ -484,9 +492,11 @@ function appendTransactionElements(containerId, transactions) {
 function getCategoryIcon(category) {
   switch (category) {
     case "Gadget":
-      return "img/icons/gamepad.svg";
+      return "img/icons/gadget.svg";
     case "Hiburan":
       return "img/icons/gamepad.svg";
+    case "Kebutuhan Pokok":
+      return "img/icons/bag.svg";
     case "": // Income
       return "img/icons/wallet-dark.svg";
     case "Kesehatan":

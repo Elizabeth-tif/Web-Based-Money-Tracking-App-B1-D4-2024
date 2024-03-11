@@ -38,15 +38,22 @@
             ><img src="img/icons/history.svg" class="icon"
           /></a>
         </li>
+        <li>
+          <a href="budget.html"
+            ><img src="img/icons/target.svg" class="icon"
+          /></a>
+        </li>
       </ul>
     </nav>
 
     <main>
       <!-- Grid -->
       <header>
+        
         <!-- Flex -->
         <h2>Good Morning, <span class="user">User</span>!</h2>
-        <button id="logOutButton" onclick="logout()">
+        <script src="js/logout.js"></script>
+        <button id="logOutButton" onclick="confirmLogout()">
           Log Out
           <img src="img/icons/logout.svg" class="icon" />
         </button>
@@ -55,9 +62,7 @@
         <h3>My balance</h3>
         <div class="greyBox">
           <div id="card">
-            <div class="money">
-              Rp. <span id="currentBalance1">5,000.00</span>
-            </div>
+            <div class="money">Rp. <span id="currentBalance1">0.00</span></div>
             <div class="expireDate">03/29</div>
             <div class="cardUser"><span class="user">User</span></div>
             <div class="cardLogo">
@@ -143,21 +148,21 @@
             /></a>
           </div>
           <label>Outcome :</label>
-          <input type="number" id="outcome" required /><br />
+          <input type="number" id="outcome" required />
           <label>Date :</label>
-          <input type="date" id="date" required /><br />
+          <input type="date" id="date" required />
           <label for="outcomeCategory">Select Outcome Category :</label>
           <select id="outcomeCategory" required>
-            <br />
             <option value="Gadget">Gadget</option>
+            <option value="Kebutuhan Pokok">Kebutuhan Pokok</option>
             <option value="Hiburan">Hiburan</option>
             <option value="Kesehatan">Kesehatan</option>
             <option value="Makanan & Minuman">Makanan & Minuman</option>
             <option value="Pendidikan">Pendidikan</option>
-            <option value="Transportasi">Transportasi</option></select
-          ><br />
-          <label>Notes :</label>
-          <input type="text" id="outcomeNotes" /><br />
+            <option value="Transportasi">Transportasi</option>
+          </select>
+          <label for="outcomeNotes">Notes :</label>
+          <input type="text" id="outcomeNotes" />
           <input type="submit" value="Submit" />
         </form>
       </div>

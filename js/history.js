@@ -4,6 +4,9 @@ let ls = window.localStorage;
 // function untuk menampilkan tabel history transaksi
 // inisialisasi DataTable agar tidak bisa dilakukan sort berdasarkan kolom pertama
 var tableTrans = $("#transHistTable").DataTable({
+  search:{
+    return : true
+  },
   columnDefs: [
     { targets: [0], orderable: false }, // replace 0 with the index of the column you want to disable sorting for
   ],
@@ -11,8 +14,9 @@ var tableTrans = $("#transHistTable").DataTable({
 });
 
 function transactionHistoryTable() {
+  var type = "outcome";
   //mendapatkan value dropdown
-  var type = document.getElementById("transHistDrop").value;
+  type = document.getElementById("transHistDrop").value;
 
   // pembersihan dataTable agar tidak append
   tableTrans.clear();
@@ -34,7 +38,23 @@ function transactionHistoryTable() {
   console.log(transactionArray);
 
   //apabila type yang dipilih di dropdown adalah outcome, maka menampilkan tabel outcome
-  if (type == "outcome") {
+  
+  if (!type) {
+    for (let index = 0; index < transactionArray.length; index++) {
+      date = new Date(transactionArray[index].date);
+      var row = [
+        date.getDate() +
+          "/" +
+          (date.getMonth() + 1) +
+          "/" +
+          date.getFullYear(), //date
+        transactionArray[index].amount,
+        transactionArray[index].category,
+        transactionArray[index].notes,
+      ];
+      tableTrans.row.add(row);
+    }
+  }else if (type == "outcome") {
     //for loop untuk menampilkan tabel outcome
     for (let index = 0; index < transactionArray.length; index++) {
       date = new Date(transactionArray[index].date);
@@ -81,3 +101,5 @@ function transactionHistoryTable() {
   //membuat dataTable
   tableTrans.draw();
 }
+
+transactionHistoryTable();
