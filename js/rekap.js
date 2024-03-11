@@ -61,6 +61,7 @@ function getLocalStorageData(sorted) {
 
 //function untuk menampilkan chart setiap hari dalam 1 bulan
 function dailyRecap() {
+  
   const namaBulan = [
     "Januari",
     "Februari",
@@ -80,7 +81,10 @@ function dailyRecap() {
   const yValuesIncome = [];
   const yValuesOutcome = [];
 
-  var tableDaily = $("#dailyTable").DataTable();
+  var tableDaily = $("#dailyTable").DataTable({
+    search:{
+    return : true
+  },});
 
   tableDaily.clear();
 
