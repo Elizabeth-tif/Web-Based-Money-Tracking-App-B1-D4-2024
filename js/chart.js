@@ -15,6 +15,12 @@ document
   .getElementById("dailyGraphYear")
   .setAttribute("max", maxDate.getFullYear());
 
+document.getElementById("weeklyGraphYear").value = maxDate.getFullYear();
+document.getElementById("weeklyGraphYear").setAttribute("min", 2020);
+document
+  .getElementById("monthlyGraphYear")
+  .setAttribute("max", maxDate.getFullYear());
+
 document.getElementById("monthlyGraphYear").value = maxDate.getFullYear();
 document.getElementById("monthlyGraphYear").setAttribute("min", 2020);
 document
@@ -272,25 +278,25 @@ function dailyGraph() {
         yValuesIncome[yValuesIncome.length - 1] -
         yValuesOutcome[yValuesOutcome.length - 1];
 
-    //   // membuat baris baru di posisi paling akhir
-    //   var row = table.insertRow(-1);
+      //   // membuat baris baru di posisi paling akhir
+      //   var row = table.insertRow(-1);
 
-    //   // membuat column baru di row yang baru dibuat
-    //   var cell1 = row.insertCell(0);
-    //   var cell2 = row.insertCell(1);
-    //   var cell3 = row.insertCell(2);
-    //   var cell4 = row.insertCell(3);
+      //   // membuat column baru di row yang baru dibuat
+      //   var cell1 = row.insertCell(0);
+      //   var cell2 = row.insertCell(1);
+      //   var cell3 = row.insertCell(2);
+      //   var cell4 = row.insertCell(3);
 
-    //   // Memasukkan data ke table yang baru
-    //   cell1.innerHTML = xValues[xValues.length - 1]; //date
-    //   cell2.innerHTML = yValuesIncome[yValuesIncome.length - 1]; //income
-    //   cell3.innerHTML = yValuesOutcome[yValuesOutcome.length - 1]; // outcome
-    //   cell4.innerHTML = total; //data total (income-outcome)
-    //   if (total < 0) {
-    //     cell4.style.backgroundColor = "red";
-    //   } else if (total > 0) {
-    //     cell4.style.backgroundColor = "green";
-    //   }
+      //   // Memasukkan data ke table yang baru
+      //   cell1.innerHTML = xValues[xValues.length - 1]; //date
+      //   cell2.innerHTML = yValuesIncome[yValuesIncome.length - 1]; //income
+      //   cell3.innerHTML = yValuesOutcome[yValuesOutcome.length - 1]; // outcome
+      //   cell4.innerHTML = total; //data total (income-outcome)
+      //   if (total < 0) {
+      //     cell4.style.backgroundColor = "red";
+      //   } else if (total > 0) {
+      //     cell4.style.backgroundColor = "green";
+      //   }
     }
   }
 
@@ -363,7 +369,7 @@ function monthlyGraph() {
   var { dailyArrayIncome, dailyArrayOutcome } = getLocalStorageData(true);
 
   //Ambil elemen table untuk table bulanan
-//   var table = document.getElementById("monthlyTable");
+  //   var table = document.getElementById("monthlyTable");
 
   // Pembersihan table agar tidak append
   //   for (let i = table.rows.length - 1; i > 0; i--) {
@@ -407,24 +413,24 @@ function monthlyGraph() {
     }
   }
 
-//   pembuatan chart dan table sesuai data total income dan outcome per bulan
-    for (let index = 0; index < totalPerBulanIncome.length; index++) {
-      yValuesIncome[index] = totalPerBulanIncome[index];
-      yValuesOutcome[index] = totalPerBulanOutcome[index];
+  //   pembuatan chart dan table sesuai data total income dan outcome per bulan
+  for (let index = 0; index < totalPerBulanIncome.length; index++) {
+    yValuesIncome[index] = totalPerBulanIncome[index];
+    yValuesOutcome[index] = totalPerBulanOutcome[index];
 
-      //deklarasi var total = total income - total outcome
-      let total = yValuesIncome[index] - yValuesOutcome[index];
+    //deklarasi var total = total income - total outcome
+    let total = yValuesIncome[index] - yValuesOutcome[index];
 
-      // Membuat baris baru di posisi paling akhir
+    // Membuat baris baru di posisi paling akhir
     //   var row = table.insertRow(-1);
 
-      // membuat column baru di row yang baru dibuat
+    // membuat column baru di row yang baru dibuat
     //   var cell1 = row.insertCell(0);
     //   var cell2 = row.insertCell(1);
     //   var cell3 = row.insertCell(2);
     //   var cell4 = row.insertCell(3);
 
-      // Memasukkan data ke table
+    // Memasukkan data ke table
     //   cell1.innerHTML = xValues[index]; //data date
     //   cell2.innerHTML = yValuesIncome[index]; //data income
     //   cell3.innerHTML = yValuesOutcome[index]; //data outcome
@@ -434,7 +440,7 @@ function monthlyGraph() {
     //   } else if (total > 0) {
     //     cell4.style.backgroundColor = "green";
     //   }
-    }
+  }
 
   //pembuatan chart
   myChart = new Chart("monthlyChart", {
@@ -458,6 +464,158 @@ function monthlyGraph() {
       title: {
         display: true,
         text: "Income and Outcome Per Bulan di Tahun " + selectedYear,
+        fontSize: 16,
+        fontColor: "black",
+      },
+    },
+  });
+}
+
+function weeklyGraph() {
+  //mengambil year dari form weekly
+  var selectedYear = document.getElementById("weeklyGraphYear").value;
+
+  //deklarasi array untuk value y graphic nya, dan untuk table juga
+  const yValuesIncome = [];
+  const yValuesOutcome = [];
+  const xValues = [];
+
+  const totalPerMingguIncome = new Array().fill(0);
+  const totalPerMingguOutcome = new Array().fill(0);
+
+  // tableWeekly.clear();
+
+  //memanggil function getLocalStorageData untuk mendapatkan data dari local storage
+  var { dailyArrayIncome, dailyArrayOutcome } = getLocalStorageData(true);
+
+  //membuat array baru untuk menampung data yang tahunnya sama
+  var incomeArrayThisYear = [];
+  var outcomeArrayThisYear = [];
+
+  //memasukkan data ke array baru agar tahunnya sama dengan yang dipilih
+  for (let index = 0; index < dailyArrayIncome.length; index++) {
+    let date = new Date(dailyArrayIncome[index].date);
+    if (date.getFullYear() == selectedYear) {
+      incomeArrayThisYear.push(dailyArrayIncome[index]);
+    }
+  }
+
+  //memasukkan data ke array baru agar tahunnya sama dengan yang dipilih
+  for (let index = 0; index < dailyArrayOutcome.length; index++) {
+    let date = new Date(dailyArrayOutcome[index].date);
+    if (date.getFullYear() == selectedYear) {
+      outcomeArrayThisYear.push(dailyArrayOutcome[index]);
+    }
+  }
+
+  var mingguKe = 1;
+  var incomeIdx = 0;
+  var outcomeIdx = 0;
+  var weeklyIncome = 0;
+  var weeklyOutcome = 0;
+
+  var date = new Date(selectedYear, 0, 1);
+  var firstDay =
+    date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+  var lastDay;
+
+  if (
+    incomeArrayThisYear &&
+    incomeIdx < incomeArrayThisYear.length &&
+    outcomeArrayThisYear &&
+    outcomeIdx < outcomeArrayThisYear.length
+  ) {
+    while (date.getFullYear() == selectedYear) {
+      if (incomeArrayThisYear && incomeIdx < incomeArrayThisYear.length) {
+        var incomeDate = new Date(incomeArrayThisYear[incomeIdx].date);
+      }
+      if (outcomeArrayThisYear && outcomeIdx < outcomeArrayThisYear.length) {
+        var outcomeDate = new Date(outcomeArrayThisYear[outcomeIdx].date);
+      }
+
+      // Initialize weeklyIncome and weeklyOutcome to 0 at the start of each week
+      if (date.getDay() == 1) {
+        weeklyIncome = 0;
+        weeklyOutcome = 0;
+        var firstDay =
+          date.getDate() +
+          "/" +
+          (date.getMonth() + 1) +
+          "/" +
+          date.getFullYear();
+      }
+
+      if (
+        date.getDate() == incomeDate.getDate() &&
+        date.getMonth() == incomeDate.getMonth()
+      ) {
+        weeklyIncome = incomeArrayThisYear[incomeIdx].income;
+        if (incomeIdx < incomeArrayThisYear.length - 1) {
+          incomeIdx++;
+        }
+      }
+      if (
+        date.getDate() == outcomeDate.getDate() &&
+        date.getMonth() == outcomeDate.getMonth()
+      ) {
+        weeklyOutcome = outcomeArrayThisYear[outcomeIdx].outcome;
+        if (outcomeIdx < outcomeArrayThisYear.length - 1) {
+          outcomeIdx++;
+        }
+      }
+
+      if (date.getDay() == 0) {
+        yValuesIncome.push(weeklyIncome);
+        yValuesOutcome.push(weeklyOutcome);
+        xValues.push(mingguKe);
+        let total = weeklyIncome - weeklyOutcome;
+        lastDay =
+          date.getDate() +
+          "/" +
+          (date.getMonth() + 1) +
+          "/" +
+          date.getFullYear();
+
+        var row = [
+          mingguKe,
+          firstDay + " - " + lastDay,
+          weeklyIncome,
+          weeklyOutcome,
+          total,
+        ];
+        // tableWeekly.row.add(row);
+        mingguKe++;
+        weeklyIncome = 0;
+        weeklyOutcome = 0;
+      }
+      date.setDate(date.getDate() + 1);
+    }
+  }
+
+  // tableWeekly.draw();
+
+  //pembuatan chart sesuai dengan data yang sudah ada
+  myChart = new Chart("weeklyChart", {
+    type: "line", //tipe chartnya
+    data: {
+      labels: xValues, //array buat nilai x berupa date
+      datasets: [
+        {
+          label: "Income Per Week",
+          borderColor: "green",
+          data: yValuesIncome, //array buat nilai y  untuk income
+        },
+        {
+          label: "Outcome Per Week",
+          borderColor: "red",
+          data: yValuesOutcome, //array buat nilai y untuk outcome
+        },
+      ],
+    },
+    options: {
+      title: {
+        display: true,
+        text: "Income and Outcome Per Week in " + selectedYear,
         fontSize: 16,
         fontColor: "black",
       },

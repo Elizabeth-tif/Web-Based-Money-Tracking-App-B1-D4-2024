@@ -25,16 +25,21 @@
           /></a>
         </li>
         <li>
-          <a href="#"><img src="img/icons/chart.svg" class="icon" /></a>
+          <a class="active" href="#"><img src="img/icons/chart.svg" class="icon" /></a>
         </li>
         <li>
-          <a href="income.html"
-            ><img src="img/icons/plus.svg" class="icon"
+          <a href="rekap.html"
+            ><img src="img/icons/rekap.svg" class="icon"
           /></a>
         </li>
         <li>
-          <a href="outcome.html"
-            ><img src="img/icons/minus.svg" class="icon"
+          <a href="history.html"
+            ><img src="img/icons/history.svg" class="icon"
+          /></a>
+        </li>
+        <li>
+          <a href="budget.html"
+            ><img src="img/icons/target.svg" class="icon"
           /></a>
         </li>
       </ul>
@@ -100,6 +105,20 @@
         />
         <button onclick="dailyGraph()">Show Graph</button>
         <canvas id="dailyChart" class="dailyObject"></canvas>
+      </div>
+
+      <div class="chart">
+        <div class="header">
+          <h3>Weekly Income / Expenses</h3>
+        </div>
+        <label for="">Input a year:</label>
+        <input
+          id="weeklyGraphYear"
+          type="number"
+          placeholder="year should be 2020-2024"
+        />
+        <button onclick="weeklyGraph()">Show Graph</button>
+        <canvas id="weeklyChart"></canvas>
       </div>
 
       <!-- Monthly Chart -->

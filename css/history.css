@@ -4,13 +4,31 @@
   padding: 0;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 body {
   font-family: "Segoe UI", sans-serif;
 }
 
+.button{
+  color: #f6f5fc;
+  font-size: 14px;
+  background-color: #3b3f45;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 5px 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
 .greyBox {
   background-color: #f6f5fc;
-  padding: 10px;
+  padding: 20px;
+  margin: 20px auto;
   border-radius: 15px;
   box-shadow: 0 0 15px rgba(59, 63, 69, 0.2);
 }
@@ -23,6 +41,20 @@ h4 {
   margin: 10px 0;
   font-weight: 400;
   color: #86858c;
+}
+
+a {
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+
+a:hover {
+  box-shadow: 0 0 10px rgba(59, 63, 69, 0.5);
+  transform: translateY(-2px);
+}
+
+.active {
+  filter: drop-shadow(0 0 10px rgba(246, 245, 252, 1));
 }
 
 .icon {
@@ -52,7 +84,7 @@ nav ul {
   margin-top: 50px;
   list-style: none;
   font-size: 20px;
-  height: 40%;
+  height: 50%;
 }
 
 nav ul li .icon {
@@ -73,80 +105,49 @@ nav ul li a {
 
 /* Main */
 main {
-    margin-left: 120px;
-    margin-right: 20px;
-    padding: 20px 0;
+  margin-left: 100px;
+  margin-right: 20px;
+  padding: 20px 0;
+}
+
+/* Responsive Breakpoint */
+@media screen and (max-width: 460px) {
+  nav {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: unset;
+    flex-direction: row;
+    justify-content: space-between;
   }
 
-/* History */
+  nav ul {
+    width: 60%;
+    flex-direction: row;
+    align-content: center;
+    margin-top: 0;
+  }
 
-.history .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+  nav ul li a {
+    padding-top: 4.8px;
+  }
+
+  main {
+    margin-top: 80px;
+    margin-left: 20px;
+  }
 }
 
-.history .header h3 {
-  margin: 0;
+@media screen and (max-width: 375px) {
+  main {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }
 
-.history .header a {
-  color: #f6f5fc;
-  font-size: 14px;
-  background-color: #3b3f45;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  padding: 5px 10px;
-  text-decoration: none;
+@media screen and (max-width: 320px) {
+  main {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
-
-.history .transaction {
-  background-color: #f6f5fc;
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 15px;
-  box-shadow: 0 0 15px rgba(59, 63, 69, 0.2);
-  display: grid;
-  grid-template-areas:
-    "icon category expense"
-    "icon description date";
-  grid-template-columns: 50px 1fr auto;
-  column-gap: 10px;
-}
-
-.history .transaction .icon {
-  grid-area: icon;
-  box-sizing: content-box;
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 12px;
-}
-
-.history .transaction .category {
-  grid-area: category;
-  color: #3b3f45;
-  font-weight: 600;
-  font-size: 1.2em;
-}
-
-.history .transaction .description {
-  grid-area: description;
-  font-size: 14px;
-  color: #86858c;
-}
-
-.history .transaction .expense {
-  grid-area: expense;
-  color: #3b3f45;
-  font-weight: 700;
-  font-size: 1.2em;
-}
-
-.history .transaction .date {
-  grid-area: date;
-  font-size: 14px;
-  color: #86858c;
-  text-align: right;
-}
-/* History End */
