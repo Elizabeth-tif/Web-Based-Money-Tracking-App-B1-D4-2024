@@ -6,6 +6,7 @@ document.getElementById("recapYear").setAttribute("min", 2020);
 document.getElementById("recapYear").setAttribute("max", maxDate.getFullYear());
 
 let ls = window.localStorage;
+let username = ls.getItem("loggedInUser").toString()
 
 // $(document).ready( function () {
 //     $('#incometable').DataTable({
@@ -29,8 +30,8 @@ window.onload = function () {
 //function untuk mengambil nilai dari local storage
 function getLocalStorageData(sorted) {
   //ambil data array dari local storage yang fieldnya namanya income dan outcome
-  var dailyArrayIncome = ls.getItem("income");
-  var dailyArrayOutcome = ls.getItem("outcome");
+  var dailyArrayIncome = ls.getItem("income"+username);
+  var dailyArrayOutcome = ls.getItem("outcome"+username);
 
   //parsing dari local storage, asalnya String jadi menjadi type
   if (dailyArrayIncome && dailyArrayIncome.length > 0) {
