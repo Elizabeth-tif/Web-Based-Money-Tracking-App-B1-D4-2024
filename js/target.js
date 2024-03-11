@@ -1,5 +1,6 @@
+let username = localStorage.getItem("loggedInUser").toString()
 // Define the transactionArray variable
-const transactionArray = JSON.parse(localStorage.getItem('transaction')) || [];
+const transactionArray = JSON.parse(localStorage.getItem('transaction'+ username)) || [];
 
 // Function to update progress bar width
 function updateProgressBarWidth(category, widthPercentage) {

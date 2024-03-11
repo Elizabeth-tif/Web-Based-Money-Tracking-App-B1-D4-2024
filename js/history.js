@@ -1,5 +1,6 @@
 //shortcut untuk akses local storage
 let ls = window.localStorage;
+let username = ls.getItem("loggedInUser").toString()
 
 // function untuk menampilkan tabel history transaksi
 // inisialisasi DataTable agar tidak bisa dilakukan sort berdasarkan kolom pertama
@@ -22,7 +23,7 @@ function transactionHistoryTable() {
   tableTrans.clear();
 
   //memasukkan data dari local storage dengan key "transaction" ke array
-  var transactionArray = ls.getItem("transaction");
+  var transactionArray = ls.getItem("transaction"+username);
 
   // Parsing dari local storage, asalnya String jadi menjadi type
   if (transactionArray && transactionArray.length > 0) {
