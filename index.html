@@ -188,5 +188,15 @@
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
   <script src="js/index.js"></script>
+  <script>
+    window.onload = function() {
+    let username = localStorage.getItem('loggedInUser');
+    let userElements = document.getElementsByClassName('user');
+
+    for(let i = 0; i < userElements.length; i++) {
+        userElements[i].textContent = username;
+    }
+}
+  </script>
   
 </html>
