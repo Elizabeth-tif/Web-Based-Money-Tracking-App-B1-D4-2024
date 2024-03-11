@@ -58,14 +58,14 @@
           </div>
           <div class="target">
             <h4>
-              Monthly Income Target
+              Monthly Target
               <p>
-                <span class="current" id="currentBalance2">Rp. 5,000</span> /
-                <span class="target">Rp. 100,000</span>
+                <span id="monthlyTotal"></span></p>
               </p>
             </h4>
             <div class="progressBar">
-              <div class="progress"></div>
+              <div class="progress" data-name="Monthly"></div>
+          </div>
             </div>
           </div>
         </div>
@@ -188,6 +188,7 @@
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
   <script src="js/index.js"></script>
+  <script src="js/target.js"></script>
   <script>
     window.onload = function() {
     let username = localStorage.getItem('loggedInUser');
