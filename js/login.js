@@ -43,6 +43,7 @@ function signIn(e) {
         alert("Incorrect login credentials");
     }
     else{
+        localStorage.setItem('loggedInUser', users[index].username);
         location.href = "index.html";
     }
     e.preventDefault();
