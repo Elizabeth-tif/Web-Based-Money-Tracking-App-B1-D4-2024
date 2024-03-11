@@ -83,9 +83,8 @@ function dailyRecap() {
 
   var tableDaily = $("#dailyTable").DataTable({
     search:{
-    return : true
-  },});
-
+    return : true },});
+  
   tableDaily.clear();
 
   //ambil value dari input
