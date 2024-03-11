@@ -56,18 +56,27 @@
         <h2>Financial Recap</h2>
       </header>
 
+      <div class="greyBox">
+        <div class="header">
+          <h3>Input year for monthly and weekly recap</h3>
+        </div>
+        <label for="recapYear">Input Year:</label>
+        <input id="recapYear" type="number" onchange="weeklyRecap(); monthlyRecap()" />
+      </div>
+
       <!-- Rekap Bulanan -->
       <div class="greyBox">
         <div class="header">
           <h3>Monthly recap</h3>
         </div>
-        <table id="incometable" class="stripe" style="width: 100%">
+        <table id="monthlyTable" class="stripe" style="width: 100%">
           <thead>
-            <th>Day</th>
             <th>Month</th>
-            <th>Year</th>
             <th>Income</th>
+            <th>Outcome</th>
+            <th>Total</th>
           </thead>
+          <tbody></tbody>
         </table>
       </div>
 
@@ -76,24 +85,39 @@
         <div class="header">
           <h3>Weekly Recap</h3>
         </div>
-        <table id="incometable" class="stripe" style="width: 100%">
+        <table id="weeklyTable" class="stripe" style="width: 100%">
           <thead>
-            <th>Day</th>
-            <th>Month</th>
-            <th>Year</th>
+            <th>Week</th>
             <th>Income</th>
+            <th>Outcome</th>
+            <th>Total</th>
           </thead>
         </table>
       </div>
 
-      <!-- Rekap Harian -->
+      <!-- Rekap Bulanan -->
       <div class="greyBox">
         <div class="header">
           <h3>Daily Recap</h3>
         </div>
-        <table id="incometable" class="stripe" style="width: 100%">
+        <label for="recapMonth">Select Month</label>
+        <select id="recapMonth" onchange="dailyRecap()">
+          <option selected value="1">January</option>
+          <option value="2">February</option>
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5">May</option>
+          <option value="6">June</option>
+          <option value="7">July</option>
+          <option value="8">August</option>
+          <option value="9">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
+        <table id="dailyTable" class="stripe" style="width: 100%">
           <thead>
-            <th>Day</th>
+            <th>Date</th>
             <th>Month</th>
             <th>Year</th>
             <th>Income</th>
