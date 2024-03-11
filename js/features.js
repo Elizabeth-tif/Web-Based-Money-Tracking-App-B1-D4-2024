@@ -566,7 +566,7 @@ function getCategoryIcon(category) {
         case 'Hiburan':
             return 'icons/gamepad.svg'
         case 'Income':
-            return 'icons/wallet.svg'
+            return 'icons/wallet-dark.svg'
         case 'Kesehatan':
             return 'icons/medical.svg'
         case 'Makanan & Minuman':
@@ -612,6 +612,7 @@ var tableTrans = $('#transHistTable').DataTable({
     ],
     order: []
 });
+
 function transactionHistoryTable() {
     //mendapatkan value dropdown
     var type = document.getElementById("transHistDrop").value;
