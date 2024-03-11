@@ -37,7 +37,7 @@ function signIn(e) {
         data.username.toLowerCase() == username.toLowerCase() && data.pwd.toLowerCase() == pwd
     );
 
-    localStorage.setItem('loggedInUser', index);
+    // localStorage.setItem('loggedInUser', index);
 
     if(index === -1){
         alert("Incorrect login credentials");
