@@ -137,6 +137,10 @@ function calculateTotalOutcomeAndPercentages() {
     monthlyOutcome,
     yearlyTarget / 12
   );
+
+  // Set item in local storage for homepage to use
+  localStorage.setItem("monthlyPercentage"+username, monthlyPercentage);
+
   const yearlyPercentage = calculatePercentage(yearlyOutcome, yearlyTarget);
 
   if (monthlyOutcome <= 0) {
@@ -160,6 +164,9 @@ function calculateTotalOutcomeAndPercentages() {
     formatCurrency(monthlyOutcome) + ` / ${formatCurrency(yearlyTarget / 12)}`;
   yearlyTotal.querySelector('.outcome').textContent =
     formatCurrency(yearlyOutcome) + ` / ${formatCurrency(yearlyTarget)}`;
+
+  // Set item to local storage for homepage to use
+  localStorage.setItem("monthlyTotal"+username, formatCurrency(monthlyOutcome) + ` / ${formatCurrency(yearlyTarget / 12)}`);
 }
 
 // Function to format currency in Rp. (Rupiah) format

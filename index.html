@@ -49,7 +49,6 @@
     <main>
       <!-- Grid -->
       <header>
-        
         <!-- Flex -->
         <h2>Good Morning, <span class="user">User</span>!</h2>
         <script src="js/logout.js"></script>
@@ -73,12 +72,11 @@
             <h4>
               Monthly Target
               <p>
-                <span id="monthlyTotal"></span></p>
+                <span id="monthlyTotal"></span>
               </p>
             </h4>
             <div class="progressBar">
               <div class="progress" data-name="Monthly"></div>
-          </div>
             </div>
           </div>
         </div>
@@ -170,7 +168,6 @@
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
   <script src="js/index.js"></script>
-  <script src="js/target.js"></script>
   <script>
     window.onload = function () {
       let username = localStorage.getItem("loggedInUser");
@@ -184,6 +181,25 @@
 
       for (let i = 0; i < userElements.length; i++) {
         userElements[i].textContent = username;
+      }
+
+      var monthlyTotal = localStorage.getItem("monthlyTotal"+username);
+      var value = localStorage.getItem("monthlyPercentage"+username);
+      
+      value = value < 0 ? 0 : value;
+      value = value > 100 ? 100 : value;
+      
+      const monthlyTotalElement = document.getElementById("monthlyTotal");
+      monthlyTotalElement.textContent = monthlyTotal;
+      const progressBar = document.querySelector(
+        `.progress[data-name="Monthly"]`
+      );
+      if (progressBar) {
+        progressBar.style.setProperty("--progress-width", `${value}%`);
+      } else {
+        console.error(
+          `Progress bar element for category monthlyTarget not found.`
+        );
       }
     };
   </script>
