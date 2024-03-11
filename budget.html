@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Tracking App</title>
+    <link rel="stylesheet" href="css/index.css" />
+
+</head>
+
+<body>
+    <form id="budgetForm" onsubmit="store()">
+        <h1>Enter Your Budget</h1>
+
+        <label for="category">Select Category:</label>
+        <select id="category" required>
+            <option value="Gadget">Gadget</option>
+            <option value="Kebutuhan Pokok">Kebutuhan Pokok</option>
+            <option value="Hiburan">Hiburan</option>
+            <option value="Kesehatan">Kesehatan</option>
+            <option value="Makanan & Minuman">Makanan & Minuman</option>
+            <option value="Pendidikan">Pendidikan</option>
+            <option value="Transportasi">Transportasi</option>
+        </select>
+
+        <label for="budget">Enter Budget:</label>
+        <input type="number" id="budget" placeholder="Enter Amount" required>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <div class="progressBar">
+        <div class="progress" data-name="Gadget"></div>
+    </div>
+
+    <div class="progressBar">
+        <div class="progress" data-name="Kebutuhan Pokok"></div>
+    </div>
+
+    <div class="progressBar">
+        <div class="progress" data-name="Hiburan"></div>
+    </div>
+
+    <div class="progressBar">
+        <div class="progress" data-name="Kesehatan"></div>
+    </div>
+
+    <div class="progressBar">
+        <div class="progress" data-name="Makanan & Minuman"></div>
+    </div>
+
+    <div class="progressBar">
+        <div class="progress" data-name="Pendidikan"></div>
+    </div>
+
+    <div class="progressBar">
+        <div class="progress" data-name="Transportasi"></div>
+    </div>
+
+    <script src="js/budget.js"></script>
+</body>
+
+</html>

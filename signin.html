@@ -1,35 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign In</title>
-    <link rel="stylesheet" href="css/login.css">
-</head>
+    <link rel="stylesheet" href="css/login.css" />
+  </head>
 
-<body>
-    <div class="login">
-        <form name="form-login" role="form" onsubmit="signIn(event);" autocomplete="off">
-
-            <h1>SIGN IN</h1>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="username" name="username" id="username" placeholder="Username" required>
-            </div>
-            <div class="form-group">
-                <label for="pwd">Password</label>
-                <input type="password" name="pwd" id="pwd" placeholder="Password" required>
-            </div>
-            <p><em><a href="signup.html" style="color: gray; text-decoration: none;">Don't have an account? Sign
-                        Up</a></em></p>
-            <div class="form-group">
-                <input id="login_btn" type="submit" value="Login"></input>
-            </div>
-        </form>
+  <body>
+    <div class="container">
+      <form
+        name="form-login"
+        role="form"
+        onsubmit="signIn(event);"
+        autocomplete="off"
+      >
+        <h1>SIGN IN</h1>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="username"
+            name="username"
+            id="username"
+            placeholder="Username"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="pwd">Password</label>
+          <input
+            type="password"
+            name="pwd"
+            id="pwd"
+            placeholder="Password"
+            required
+          />
+        </div>
+        <a href="signup.html">Don't have an account? Sign Up</a>
+        <div class="form-group">
+          <input id="login_btn" type="submit" value="Login" />
+        </div>
+      </form>
     </div>
-    <script type="text/javascript" src="js/login.js"></script>
-</body>
-
+  </body>
+  <script type="text/javascript" src="js/login.js"></script>
 </html>

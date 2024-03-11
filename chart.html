@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/chart.css" />
+
+    <title>Money Tracking App</title>
+  </head>
+  <body>
+    <nav>
+      <h2>B1</h2>
+      <ul class="navigation">
+        <li>
+          <a href="index.html"
+            ><img src="img/icons/house.svg" class="icon"
+          /></a>
+        </li>
+        <li>
+          <a href="#"><img src="img/icons/chart.svg" class="icon" /></a>
+        </li>
+        <li>
+          <a href="income.html"
+            ><img src="img/icons/plus.svg" class="icon"
+          /></a>
+        </li>
+        <li>
+          <a href="outcome.html"
+            ><img src="img/icons/minus.svg" class="icon"
+          /></a>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      <!-- Pie Chart -->
+      <div class="chart">
+        <div class="header">
+          <h3>Expenses By Category</h3>
+        </div>
+        <label for="monthDropdown">Select a month :</label>
+        <select id="pieGraphMonthDropdown" onchange="expenseGraph()">
+          <option value="1">January</option>
+          <option value="2">February</option>
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5">May</option>
+          <option value="6">June</option>
+          <option value="7">July</option>
+          <option value="8">August</option>
+          <option value="9">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
+        <label for="pieGraphYear">Input a year :</label>
+        <input
+          id="pieGraphYear"
+          type="number"
+          placeholder="year should be 2020-2024"
+          onchange="expenseGraph()"
+        />
+        <button onclick="expenseGraph()">Show Graph</button>
+        <canvas id="pieChart"></canvas>
+      </div>
+
+      <!-- Daily Chart -->
+      <div class="chart">
+        <div class="header">
+          <h3>Daily Income / Expenses</h3>
+        </div>
+        <label for="monthDropdown">Select a Month:</label>
+        <select id="dailyGraphMonthDropdown" onchange="dailyGraph()">
+          <option value="1">January</option>
+          <option value="2">February</option>
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5">May</option>
+          <option value="6">June</option>
+          <option value="7">July</option>
+          <option value="8">August</option>
+          <option value="9">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
+        <label>Input a year :</label>
+        <input
+          id="dailyGraphYear"
+          type="number"
+          placeholder="year should be 2020-2024"
+        />
+        <button onclick="dailyGraph()">Show Graph</button>
+        <canvas id="dailyChart" class="dailyObject"></canvas>
+      </div>
+
+      <!-- Monthly Chart -->
+      <div class="chart">
+        <div class="header">
+          <h3>Monthly Income / Expenses</h3>
+        </div>
+        <label>Input a year :</label>
+        <input
+          id="monthlyGraphYear"
+          type="number"
+          placeholder="year should be 2020-2024"
+        />
+        <button onclick="monthlyGraph()">Show Graph</button>
+        <canvas id="monthlyChart"></canvas>
+      </div>
+    </main>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="js/chart.js"></script>
+</html>
