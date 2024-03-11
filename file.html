@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Form</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #savedTransaction {
+            max-width: 400px;
+            margin: 20px auto;
+        }
+        #savedTransaction p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Transaction Form</h2>
+    <form id="transactionForm">
+        <label for="type">Type:</label>
+        <select name="type" id="type">
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+        </select>
+        <label for="date">Date:</label>
+        <input type="date" name="date" id="date">
+        <label for="amount">Amount:</label>
+        <input type="number" name="amount" id="amount" required>
+        <label for="category">Category:</label>
+        <select id="category" required>
+            <option value="Gadget">Gadget</option>
+            <option value="Kebutuhan Pokok">Kebutuhan Pokok</option>
+            <option value="Hiburan">Hiburan</option>
+            <option value="Kesehatan">Kesehatan</option>
+            <option value="Makanan & Minuman">Makanan & Minuman</option>
+            <option value="Pendidikan">Pendidikan</option>
+            <option value="Transportasi">Transportasi</option>
+        </select>
+        <label for="notes">Notes:</label>
+        <textarea name="notes" id="notes" cols="30" rows="5"></textarea>
+        <button type="submit">Submit</button>
+    </form>
+
+    <input type="file" id="fileInput">
+    <button id="exportCSV">Export CSV</button>
+
+    <h2>Saved Transactions</h2>
+    <div id="savedTransaction"></div>
+
+    <script src="js/file.js"></script>
+</body>
+</html>
