@@ -343,7 +343,7 @@ function weeklyRecap() {
   //   });
 }
 
-//function untuk menampilkan chart berdasarkan 12 bulan dalam 1 tahun
+//function untuk menampilkan tabel berdasarkan 12 bulan dalam 1 tahun
 var tableMonthly = $("#monthlyTable").DataTable({
   columnDefs: [
     { targets: [0], orderable: false }, // replace 0 with the index of the column you want to disable sorting for

@@ -37,11 +37,11 @@ addIncomeBtn2.addEventListener("click", function () {
 
 let ls = window.localStorage;
 var myChart;
-
+let username = ls.getItem("loggedInUser").toString()
 //memasukkan data dari local storage ke array
-var arrayIncome = ls.getItem("income"); //array data income (untuk rekap)
-var arrayOutcome = ls.getItem("outcome"); //array data outcome (untuk rekap)
-var arrayAllTransaction = ls.getItem("transaction"); //array seluruh transaksi (untuk transaction)
+var arrayIncome = ls.getItem("income"+username); //array data income (untuk rekap)
+var arrayOutcome = ls.getItem("outcome"+username); //array data outcome (untuk rekap)
+var arrayAllTransaction = ls.getItem("transaction"+username); //array seluruh transaksi (untuk transaction)
 
 //set min dan max tanggal yang bisa diinput
 let minDate = new Date(2020, 0, 1); //min date = 01-01-2023
@@ -52,6 +52,8 @@ document.forms["incomeForm"]["date"].setAttribute("min", minDateString);
 document.forms["incomeForm"]["date"].setAttribute("max", maxDateString);
 document.forms["outcomeForm"]["date"].setAttribute("min", minDateString);
 document.forms["outcomeForm"]["date"].setAttribute("max", maxDateString);
+
+
 
 //parsing data dari local storage, yang asalnya array jadi bertype, jika key local storage masih kosong, diisi array kosong
 if (arrayIncome && arrayIncome.length > 0) {
@@ -103,8 +105,8 @@ function logout() {
 //function untuk mengambil nilai dari local storage
 function getLocalStorageData(sorted) {
   //ambil data array dari local storage yang fieldnya namanya income dan outcome
-  var dailyArrayIncome = ls.getItem("income");
-  var dailyArrayOutcome = ls.getItem("outcome");
+  var dailyArrayIncome = ls.getItem("income"+username);
+  var dailyArrayOutcome = ls.getItem("outcome"+username);
 
   //parsing dari local storage, asalnya String jadi menjadi type
   if (dailyArrayIncome && dailyArrayIncome.length > 0) {
@@ -182,7 +184,7 @@ function expenseGraph() {
   }
 
   //pengambilan value dari local storage dengan key transaction untuk mengambil semua transaksi
-  var transactionArray = ls.getItem("transaction");
+  var transactionArray = ls.getItem("transaction"+username);
 
   //parsing dari local storage, asalnya String jadi menjadi type
   if (transactionArray && transactionArray.length > 0) {
@@ -291,8 +293,8 @@ function newIncome() {
   arrayAllTransaction.push(transaction);
 
   //masukin data hasil array ke local storage
-  ls.setItem("income", JSON.stringify(arrayIncome));
-  ls.setItem("transaction", JSON.stringify(arrayAllTransaction));
+  ls.setItem("income"+username, JSON.stringify(arrayIncome));
+  ls.setItem("transaction"+username, JSON.stringify(arrayAllTransaction));
 }
 
 //function untuk mencatat pengeluaran baru
@@ -332,8 +334,8 @@ function newOutcome() {
   arrayAllTransaction.push(transaction);
 
   //masukin data hasil array ke local storage
-  ls.setItem("outcome", JSON.stringify(arrayOutcome));
-  ls.setItem("transaction", JSON.stringify(arrayAllTransaction));
+  ls.setItem("outcome"+username, JSON.stringify(arrayOutcome));
+  ls.setItem("transaction"+username, JSON.stringify(arrayAllTransaction));
 }
 
 //fungsi untuk menampilkan summary total expenses dan total incomes di homepage
@@ -518,7 +520,9 @@ function transactionHistory() {
   // var type = document.getElementById("transHistDrop").value;
 
   // mengambil nilai dari local storage
-  var transactionArray = ls.getItem("transaction");
+
+  var transactionArray = ls.getItem("transaction"+username);
+
 
   // parsing data, dari string menjadi type
   if (transactionArray && transactionArray.length > 0) {

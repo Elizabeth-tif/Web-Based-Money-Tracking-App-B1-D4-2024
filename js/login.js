@@ -34,7 +34,7 @@ function signIn(e) {
     //     );
 
     let index = users.findIndex(data => 
-        data.username.toLowerCase() == username.toLowerCase() && data.pwd.toLowerCase() == pwd
+        data.username == username && data.pwd == pwd
     );
 
     // localStorage.setItem('loggedInUser', index);
