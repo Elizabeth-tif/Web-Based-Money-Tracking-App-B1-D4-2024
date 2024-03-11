@@ -1,3 +1,4 @@
+//COPY rekap js
 //max date = hari ini
 let maxDate = new Date();
 //set min dan max tahun yang bisa diinput
@@ -189,6 +190,9 @@ function dailyRecap() {
 
 //function untuk menampilkan table dan chart setiap minggu dalam 1 bulan
 var tableWeekly = $("#weeklyTable").DataTable({
+  search:{
+    return : true
+  },
   columnDefs: [{ targets: [1], orderable: false }],
 });
 function weeklyRecap() {
@@ -345,6 +349,9 @@ function weeklyRecap() {
 
 //function untuk menampilkan tabel berdasarkan 12 bulan dalam 1 tahun
 var tableMonthly = $("#monthlyTable").DataTable({
+  search:{
+    return : true
+  },
   columnDefs: [
     { targets: [0], orderable: false }, // replace 0 with the index of the column you want to disable sorting for
   ],
@@ -465,3 +472,4 @@ function monthlyRecap() {
   //     },
   //   });
 }
+

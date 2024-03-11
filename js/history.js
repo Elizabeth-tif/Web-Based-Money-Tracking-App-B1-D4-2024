@@ -1,3 +1,5 @@
+//COPY HISTORY DEFAULT INCOME
+
 //shortcut untuk akses local storage
 let ls = window.localStorage;
 
@@ -49,9 +51,9 @@ function transactionHistoryTable() {
           "/" +
           date.getFullYear(), //date
         transactionArray[index].amount,
-        transactionArray[index].category,
+        transactionArray[index].category ? transactionArray[index].category : "Income",
         transactionArray[index].notes,
-      ];
+            ];
       tableTrans.row.add(row);
     }
   }else if (type == "outcome") {
@@ -88,10 +90,10 @@ function transactionHistoryTable() {
             (date.getMonth() + 1) +
             "/" +
             date.getFullYear(), //date
-          transactionArray[index].amount,
-          transactionArray[index].category,
-          transactionArray[index].notes,
-        ];
+            transactionArray[index].amount,
+            "Income",
+            transactionArray[index].notes,
+          ];
         // memasukkan row yang sudah dibuat ke dataTable
         tableTrans.row.add(row);
       }
