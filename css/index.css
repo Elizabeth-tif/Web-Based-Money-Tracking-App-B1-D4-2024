@@ -273,7 +273,7 @@ header {
 .progressBar .progress {
   background-color: #3b3f45;
   height: 100%;
-  width: 50%; /* Ubah ini sesuai value di js, samain kayak width di keyframe progress-bar to{} */
+  width: var(--progress-width, 0%);
   animation: progress-bar 1s normal;
   border-radius: 12px;
 }
@@ -284,9 +284,10 @@ header {
   }
 
   to {
-    width: 50%;
+    width: var(--progress-width, 0%);
   }
 }
+
 /* Balance End */
 
 /* Chart */
