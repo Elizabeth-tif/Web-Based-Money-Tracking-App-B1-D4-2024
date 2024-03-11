@@ -87,15 +87,18 @@ arrayAllTransaction.sort(function (a, b) {
 // if (!user) {
 //   window.location.href = "signin.html";
 // }
-
-// let span = document.getElementsByClassName("user");
-// for (let i = 0; i < span.length; i++) {
-//   span[i].innerHTML = user.username;
-// }
 /*=============================== END LOGIN USER =================================*/
+
 expenseGraph();
 summary();
 currentSaldo();
+transactionHistory();
+
+// function untuk log out (menghapus item loggedInUser dari local storage)
+function logout() {
+  ls.removeItem("loggedInUser");
+  window.location.href = "signin.html";
+}
 
 //function untuk mengambil nilai dari local storage
 function getLocalStorageData(sorted) {
@@ -423,4 +426,102 @@ function currentSaldo(){
   // document.getElementById('totalOutcome').innerHTML=showOutcome
   return 0
 }
-currentSaldo()
+
+// Fungsi untuk membuat dan append element transaksi
+function appendTransactionElements(containerId, transactions) {
+  // ambil container dimana akan dilakukan append
+  const container = document.getElementById(containerId);
+
+  // melakukan clear ke container yang sudah ada
+  container.innerHTML = "";
+
+  // melimit atau membatasi transaksi yang muncul di home hanya 5 buah
+  const limitedTransactions = transactions.slice(0, 5);
+
+  // iterasi untuk setiap transaksi, setiap iterasi akan membuat div baru
+  limitedTransactions.forEach((transaction) => {
+    const div = document.createElement("div");
+    div.classList.add("transaction");
+
+    // buat dan append image berdasarkan kategori
+    const img = document.createElement("img");
+    img.src = getCategoryIcon(transaction.category); //memanggil fungsi getCategoryIcon
+    img.classList.add("icon");
+    div.appendChild(img);
+
+    // buat dan append span element untuk kategori, notes, jumlah, dan tanggal
+    const spanCategory = document.createElement("span");
+    spanCategory.classList.add("category");
+    if (transaction.category) {
+        spanCategory.textContent = transaction.category;
+    } else {
+        spanCategory.textContent = "Income";
+    }
+    div.appendChild(spanCategory);
+
+    const spanDescription = document.createElement("span");
+    spanDescription.classList.add("notes");
+    spanDescription.textContent = transaction.notes;
+    div.appendChild(spanDescription);
+
+    const spanExpense = document.createElement("span");
+    spanExpense.classList.add("expense");
+    spanExpense.textContent = "Rp. " + transaction.amount;
+    div.appendChild(spanExpense);
+
+    const formattedDate = new Date(transaction.date).toLocaleDateString();
+    const spanDate = document.createElement("span");
+    spanDate.classList.add("date");
+    spanDate.textContent = formattedDate;
+    div.appendChild(spanDate);
+
+    // append div transaction ke container
+    container.appendChild(div);
+  });
+}
+
+// function untuk mendapatkan icon sesuai kategori
+function getCategoryIcon(category) {
+  switch (category) {
+    case "Gadget":
+      return "img/icons/gamepad.svg";
+    case "Hiburan":
+      return "img/icons/gamepad.svg";
+    case "": // Income
+      return "img/icons/wallet-dark.svg";
+    case "Kesehatan":
+      return "img/icons/medical.svg";
+    case "Makanan & Minuman":
+      return "img/icons/food.svg";
+    case "Pendidikan":
+      return "img/icons/education.svg";
+    case "Transportasi":
+      return "img/icons/transportation.svg";
+    default:
+      return "img/icons/plus-dark.svg"; // Default icon
+  }
+}
+
+// Menampilkan transaction history pada home page dengan jumlah max 5 transaksi
+function transactionHistory() {
+  // Mendapatkan value dari dropdown
+  // var type = document.getElementById("transHistDrop").value;
+
+  // mengambil nilai dari local storage
+  var transactionArray = ls.getItem("transaction");
+
+  // parsing data, dari string menjadi type
+  if (transactionArray && transactionArray.length > 0) {
+    transactionArray = JSON.parse(transactionArray);
+  } else {
+    transactionArray = [];
+  }
+
+  // Sort berdasarkan date (descending)
+  transactionArray.sort(function (a, b) {
+    return new Date(a.date) - new Date(b.date);
+  });
+
+  // memanggil function untuk append transaction element untuk semua transaction
+  appendTransactionElements("history", transactionArray);
+}
