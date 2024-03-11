@@ -1,9 +1,10 @@
+let user = localStorage.getItem('loggedInUser').toString();
 // Function to save transaction data to local storage
 function saveTransactionToLocalStorage(newTransaction) {
     var incomeArray = [];
     var outcomeArray = [];
 
-    var transactionArray = JSON.parse(localStorage.getItem('transaction')) || [];
+    var transactionArray = JSON.parse(localStorage.getItem('transaction'+user)) || [];
 
     // Convert amount to number
     newTransaction.amount = parseFloat(newTransaction.amount);
@@ -31,9 +32,9 @@ function saveTransactionToLocalStorage(newTransaction) {
     });
 
     // Update local storage with the updated arrays
-    localStorage.setItem('transaction', JSON.stringify(transactionArray));
-    localStorage.setItem('income', JSON.stringify(incomeArray));
-    localStorage.setItem('outcome', JSON.stringify(outcomeArray));
+    localStorage.setItem('transaction'+user, JSON.stringify(transactionArray));
+    localStorage.setItem('income'+user, JSON.stringify(incomeArray));
+    localStorage.setItem('outcome'+user, JSON.stringify(outcomeArray));
 }
 
 
@@ -102,7 +103,7 @@ function readCSVFile(file) {
 
 // Event listener for exporting CSV
 document.getElementById('exportCSV').addEventListener('click', function() {
-    var transaction = JSON.parse(localStorage.getItem('transaction')) || [];
+    var transaction = JSON.parse(localStorage.getItem('transaction'+user)) || [];
     var csv = convertToCSV(transaction);
     downloadCSV(csv, 'transaction.csv');
 });
