@@ -33,6 +33,7 @@ function changeDataValue(category, value) {
 }
 
 // Function to calculate total outcome per category and update progress bars
+// Function to calculate total outcome per category and update progress bars
 function calculateTotalOutcomeAndPercentages() {
     const monthlyOutcome = calculateMonthlyOutcome();
     const yearlyOutcome = calculateYearlyOutcome();
@@ -42,8 +43,18 @@ function calculateTotalOutcomeAndPercentages() {
     const monthlyPercentage = calculatePercentage(monthlyOutcome, yearlyTarget / 12);
     const yearlyPercentage = calculatePercentage(yearlyOutcome, yearlyTarget);
 
-    changeDataValue('Monthly', monthlyPercentage);
-    changeDataValue('Yearly', yearlyPercentage);
+    if (monthlyOutcome <= 0) {
+        // Set progress bars to 0 if total income and outcome is negative or 0
+        changeDataValue('Monthly', 0);
+    } else if (yearlyOutcome <= 0) {
+        changeDataValue('Yearly', 0);
+        if (monthlyOutcome > 0) {
+            changeDataValue('Monthly', monthlyPercentage);
+        }
+    } else {
+        changeDataValue('Monthly', monthlyPercentage);
+        changeDataValue('Yearly', yearlyPercentage);
+    }
 
     // Display the actual total amount and target
     const monthlyTotal = document.getElementById('monthlyTotal');
@@ -68,6 +79,7 @@ function store() {
 }
 
 // Function to calculate total monthly outcome
+// Function to calculate total monthly outcome
 function calculateMonthlyOutcome() {
     let monthlyOutcome = 0;
     const currentDate = new Date();
@@ -81,7 +93,9 @@ function calculateMonthlyOutcome() {
 
         if (transactionYear === currentYear && transactionMonth === currentMonth) {
             if (transaction.type === 'outcome') {
-                monthlyOutcome += transaction.amount;
+                monthlyOutcome -= transaction.amount; // Subtract the outcome amount
+            } else if (transaction.type === 'income') {
+                monthlyOutcome += transaction.amount; // Add the income amount
             }
         }
     });
@@ -97,13 +111,18 @@ function calculateYearlyOutcome() {
     transactionArray.forEach(transaction => {
         const transactionYear = new Date(transaction.date).getFullYear();
 
-        if (transactionYear === currentYear && transaction.type === 'outcome') {
-            yearlyOutcome += transaction.amount;
+        if (transactionYear === currentYear) {
+            if (transaction.type === 'outcome') {
+                yearlyOutcome -= transaction.amount; // Subtract the outcome amount
+            } else if (transaction.type === 'income') {
+                yearlyOutcome += transaction.amount; // Add the income amount
+            }
         }
     });
 
     return yearlyOutcome;
 }
+
 
 // Initial calculation
 calculateTotalOutcomeAndPercentages();
