@@ -3,8 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- <link rel="stylesheet" href="css/index.css"> -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
     <link rel="stylesheet" href="css/history.css" />
 
     <title>Transaction History</title>
@@ -24,13 +28,18 @@
           /></a>
         </li>
         <li>
-          <a href="income.html"
-            ><img src="img/icons/plus.svg" class="icon"
+          <a href="rekap.html"
+            ><img src="img/icons/rekap.svg" class="icon"
           /></a>
         </li>
         <li>
-          <a href="outcome.html"
-            ><img src="img/icons/minus.svg" class="icon"
+          <a class="active" href="#"
+            ><img src="img/icons/history.svg" class="icon"
+          /></a>
+        </li>
+        <li>
+          <a href="budget.html"
+            ><img src="img/icons/target.svg" class="icon"
           /></a>
         </li>
       </ul>
@@ -38,51 +47,29 @@
     <main>
       <div class="history">
         <div class="header">
-          <h3>Transactions History</h3>
+          <h2>Transactions History</h2>
         </div>
-        <div class="transaction">
-          <img src="img/icons/food.svg" class="icon" />
-          <span class="category">Food & Beverages</span>
-          <span class="description">Buying a loaf of bread</span>
-          <span class="expense">-Rp. 15,000</span>
-          <span class="date">09/03/2024</span>
-        </div>
-        <div class="transaction">
-          <img src="img/icons/transportation.svg" class="icon" />
-          <span class="category">Transportation</span>
-          <span class="description">Taxi fee</span>
-          <span class="expense">-Rp. 30,000</span>
-          <span class="date">08/03/2024</span>
-        </div>
-        <div class="transaction">
-          <img src="img/icons/gamepad.svg" class="icon" />
-          <span class="category">Entertainment</span>
-          <span class="description">Free Fire top-up</span>
-          <span class="expense">-Rp. 75,000</span>
-          <span class="date">28/02/2024</span>
-        </div>
-        <div class="transaction">
-          <img src="img/icons/medical.svg" class="icon" />
-          <span class="category">Medical</span>
-          <span class="description">Buy skin-whitening creams</span>
-          <span class="expense">-Rp. 50,000</span>
-          <span class="date">26/02/2024</span>
-        </div>
-        <div class="transaction">
-          <img src="img/icons/education.svg" class="icon" />
-          <span class="category">Education</span>
-          <span class="description">Campus tuition fee</span>
-          <span class="expense">-Rp. 1,000,000</span>
-          <span class="date">01/02/2024</span>
-        </div>
-        <div class="transaction">
-          <img src="img/icons/education.svg" class="icon" />
-          <span class="category">Education</span>
-          <span class="description">Campus tuition fee</span>
-          <span class="expense">-Rp. 1,000,000</span>
-          <span class="date">01/02/2024</span>
+        <div class="greyBox">
+          <select id="transHistDrop" onchange="transactionHistoryTable()">
+            <option value="">All</option>
+            <option value="outcome">Outcome</option>
+            <option value="income">Income</option>
+          </select>
+          <table id="transHistTable" class="stripe" style="width: 100%">
+            <thead>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Category</th>
+              <th>Notes</th>
+            </thead>
+          </table>
         </div>
       </div>
     </main>
   </body>
+
+  <script src="js/history.js"></script>
+  <script>
+    window.onload = transactionHistoryTable;
+  </script>
 </html>

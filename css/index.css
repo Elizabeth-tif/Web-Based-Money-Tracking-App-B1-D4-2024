@@ -35,6 +35,10 @@ a:hover {
   transform: translateY(-2px);
 }
 
+.active {
+  filter: drop-shadow(0 0 10px rgba(246, 245, 252, 1));
+}
+
 .icon {
   width: 30px;
   height: 30px;
@@ -158,7 +162,7 @@ nav ul {
   margin-top: 50px;
   list-style: none;
   font-size: 20px;
-  height: 40%;
+  height: 50%;
 }
 
 nav ul li .icon {
@@ -201,6 +205,31 @@ header {
   align-items: center;
 }
 
+header #logOutButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #f6f5fc;
+  font-size: 14px;
+  background-color: #3b3f45;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 5px 10px;
+  text-decoration: none;
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+
+header #logOutButton:hover {
+  box-shadow: 0 0 10px rgba(59, 63, 69, 0.5);
+  transform: translateY(-2px);
+}
+
+header #logOutButton .icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
+}
 /* Header End */
 
 /* Balance */
@@ -273,7 +302,7 @@ header {
 .progressBar .progress {
   background-color: #3b3f45;
   height: 100%;
-  width: 50%; /* Ubah ini sesuai value di js, samain kayak width di keyframe progress-bar to{} */
+  width: var(--progress-width, 0%);
   animation: progress-bar 1s normal;
   border-radius: 12px;
 }
@@ -284,9 +313,10 @@ header {
   }
 
   to {
-    width: 50%;
+    width: var(--progress-width, 0%);
   }
 }
+
 /* Balance End */
 
 /* Chart */
@@ -430,22 +460,22 @@ header {
 /* Summaries End */
 
 /* History */
-#history {
+.history {
   grid-area: history;
 }
 
-#history .header {
+.history .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
 
-#history .header h3 {
+.history .header h3 {
   margin: 0;
 }
 
-#history .header a {
+.history .header a {
   color: #f6f5fc;
   font-size: 14px;
   background-color: #3b3f45;
@@ -455,7 +485,7 @@ header {
   text-decoration: none;
 }
 
-#history .transaction {
+.history .transaction {
   background-color: #f6f5fc;
   padding: 10px;
   margin-bottom: 20px;
@@ -469,7 +499,7 @@ header {
   column-gap: 10px;
 }
 
-#history .transaction .icon {
+.history .transaction .icon {
   grid-area: icon;
   box-sizing: content-box;
   background-color: #fff;
@@ -477,27 +507,27 @@ header {
   border-radius: 12px;
 }
 
-#history .transaction .category {
+.history .transaction .category {
   grid-area: category;
   color: #3b3f45;
   font-weight: 600;
   font-size: 1.2em;
 }
 
-#history .transaction .description {
+.history .transaction .description {
   grid-area: description;
   font-size: 14px;
   color: #86858c;
 }
 
-#history .transaction .expense {
+.history .transaction .expense {
   grid-area: expense;
   color: #3b3f45;
   font-weight: 700;
   font-size: 1.2em;
 }
 
-#history .transaction .date {
+.history .transaction .date {
   grid-area: date;
   font-size: 14px;
   color: #86858c;

@@ -11,69 +11,122 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="css/index.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
-    <script src="js/incometbl.js"></script>
+    <link rel="stylesheet" href="css/rekap.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css"
+    />
+
     <title>Money Tracking App</title>
   </head>
   <body>
     <nav>
       <h2>B1</h2>
       <ul class="navigation">
-        <li><a href="index.html"><img src="img/icons/house.svg" class="icon"></a></li>
-        <li><a href="chart.html"><img src="img/icons/chart.svg" class="icon"></a></li>
-        <li><a href="#"><img src="img/icons/plus.svg" class="icon"></a></li>
-        <li><a href="outcome.html"><img src="img/icons/minus.svg" class="icon"></a></li>
+        <li>
+          <a href="index.html"
+            ><img src="img/icons/house.svg" class="icon"
+          /></a>
+        </li>
+        <li>
+          <a href="chart.html"
+            ><img src="img/icons/chart.svg" class="icon"
+          /></a>
+        </li>
+        <li>
+          <a class="active" href="#"
+            ><img src="img/icons/rekap.svg" class="icon"
+          /></a>
+        </li>
+        <li>
+          <a href="history.html"
+            ><img src="img/icons/history.svg" class="icon"
+          /></a>
+        </li>
+        <li>
+          <a href="budget.html"
+            ><img src="img/icons/target.svg" class="icon"
+          /></a>
+        </li>
       </ul>
     </nav>
 
     <main>
       <header>
-        <h2>Good Morning, <span class="user">User</span>!</h2>
+        <h2>Financial Recap</h2>
       </header>
 
-      <div class="chart">
+      <div class="greyBox">
         <div class="header">
-          <h3>Statistics</h3>
-          <a href="#">View All</a>
+          <h3>Input year for monthly and weekly recap</h3>
         </div>
-        <div class="greyBox">
-            <table id="incometable" class="stripe" style="width:100%">
-                  <thead>
-                  <th>Day</th>
-                  <th>Month</th>
-                  <th>Year</th>
-                  <th>Income</th>
-                  </thead>        
-              </table>
-          </div>
+        <label for="recapYear">Input Year:</label>
+        <input id="recapYear" type="number" onchange="weeklyRecap(); monthlyRecap()" />
       </div>
-      <div class="summaries">
-        <h3>Summary</h3>
-        <div class="greyBox">
-          <div id="expense" class="summary">
-            <img src="img/icons/money.svg" class="icon">
-            <span class="header">Total expenses</span>
-            <span class="lastMonth">Last Month</span>
-            <span class="thisMonth">This Month</span>
-            <span class="lastMoney">-Rp. 4,000</span>
-            <span class="thisMoney">-Rp. 2,000</span>
-            <div class="button"><a href="#">></a></div>
-          </div>
-          <div id="income" class="summary">
-            <img src="img/icons/wallet.svg" class="icon">
-            <span class="header">Total incomes</span>
-            <span class="lastMonth">Last Month</span>
-            <span class="thisMonth">This Month</span>
-            <span class="lastMoney">+Rp. 4,000</span>
-            <span class="thisMoney">+Rp. 2,000</span>
-            <div class="button"><a href="#">></a></div>
-          </div>
+
+      <!-- Rekap Bulanan -->
+      <div class="greyBox">
+        <div class="header">
+          <h3>Monthly recap</h3>
         </div>
+        <table id="monthlyTable" class="stripe" style="width: 100%">
+          <thead>
+            <th>Month</th>
+            <th>Income</th>
+            <th>Outcome</th>
+            <th>Total</th>
+          </thead>
+          <tbody></tbody>
+        </table>
       </div>
+
+      <!-- Rekap Mingguan -->
+      <div class="greyBox">
+        <div class="header">
+          <h3>Weekly Recap</h3>
+        </div>
+        <table id="weeklyTable" class="stripe" style="width: 100%">
+          <thead>
+            <th>Week</th>
+            <th>Income</th>
+            <th>Outcome</th>
+            <th>Total</th>
+          </thead>
+        </table>
+      </div>
+
+      <!-- Rekap Bulanan -->
+      <div class="greyBox">
+        <div class="header">
+          <h3>Daily Recap</h3>
+        </div>
+        <label for="recapMonth">Select Month</label>
+        <select id="recapMonth" onchange="dailyRecap()">
+          <option selected value="1">January</option>
+          <option value="2">February</option>
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5">May</option>
+          <option value="6">June</option>
+          <option value="7">July</option>
+          <option value="8">August</option>
+          <option value="9">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
+        <table id="dailyTable" class="stripe" style="width: 100%">
+          <thead>
+            <th>Date</th>
+            <th>Month</th>
+            <th>Year</th>
+            <th>Income</th>
+          </thead>
+        </table>
       </div>
     </main>
   </body>
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+  <script src="js/rekap.js"></script>
 </html>

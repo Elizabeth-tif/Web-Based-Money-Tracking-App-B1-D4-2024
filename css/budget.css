@@ -90,94 +90,83 @@ main {
   margin-left: 120px;
   margin-right: 20px;
   padding: 20px 0;
-  display: grid;
-  gap: 20px;
-  grid-template-rows: repeat(auto-fit, 1fr);
-  grid-template-columns: repeat(auto-fit, minmax(432px, 1fr));
 }
 
-/* Chart */
-.chart {
-  background-color: #f6f5fc;
-  padding: 10px;
-  border-radius: 15px;
-  box-shadow: 0 0 15px rgba(59, 63, 69, 0.2);
+/* Container */
+.containerWrapper {
   display: flex;
-  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0;
 }
 
-.chart .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.chart .header h3 {
-  margin: 0;
-}
-
-.chart input,
-select {
-  width: 100%;
-  box-sizing: border-box;
-  background-color: #fff;
-  box-sizing: border-box;
-  border: none;
-  border-radius: 5px;
-  color: #3b3f45;
-  font-weight: 400;
-  font-size: 14px;
-  margin-top: 3px;
-  margin-bottom: 1em;
-  padding: 10px;
-  width: 100%;
-  transition-duration: 0.18s;
-}
-
-.chart input:focus {
-  outline: none;
-  box-shadow: 0 0 10px rgba(59, 63, 69, 0.5);
-}
-
-.chart select:focus {
-  outline: none;
-  box-shadow: 0 0 10px rgba(59, 63, 69, 0.5);
-}
-
-.chart button {
-  width: 100%;
-  box-sizing: border-box;
-  background-color: #3b3f45;
-  border: none;
-  border-radius: 5px;
+.container {
   color: #f6f5fc;
-  padding: 5px;
-  margin-bottom: 1em;
+  width: 100%;
+}
+
+.container form {
+  background-color: #3b3f45;
+  box-shadow: 0 0 10px rgba(59, 63, 69, 0.5);
+  padding: 15px;
+  border-radius: 5px;
+}
+
+input,
+select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #3b3f45;
+}
+
+input[type="submit"] {
   cursor: pointer;
   transition-duration: 0.2s;
 }
 
-.chart button:hover {
-  box-shadow: 0 0 10px rgba(59, 63, 69, 0.5);
+input[type="submit"]:hover {
   transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(246, 245, 252, 0.3);
 }
 
-.chart canvas {
-  width: 100%;
-  min-width: 412px;
-  max-width: 700px;
-  min-height: 206px;
-  max-height: 350px;
-  border: 3px solid #3b3f45;
-  border-radius: 5px;
-  align-self: center;
-  padding: 10px;
+/* Progress Bar */
+.progressItem .textWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0;
 }
-/* Chart End */
+.progressItem h4 {
+  margin: 0;
+  color: #3b3f45;
+}
+
+.progressItem p {
+  color: #86858c;
+  font-size: 14px;
+}
+
+.progressBar {
+  height: 12px;
+  border-radius: 12px;
+  background-color: #d6d5dc;
+  overflow: hidden;
+}
+
+.progressBar .progress {
+  background-color: #3b3f45;
+  height: 100%;
+  width: var(--progress-width, 0%);
+  animation: progress-bar 1s normal;
+  border-radius: 12px;
+}
 
 /* Responsive Breakpoint */
-@media screen and (max-width: 585px) {
+@media screen and (max-width: 460px) {
   nav {
     left: 0;
     right: 0;

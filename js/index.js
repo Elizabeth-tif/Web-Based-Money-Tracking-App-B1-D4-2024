@@ -520,7 +520,9 @@ function transactionHistory() {
   // var type = document.getElementById("transHistDrop").value;
 
   // mengambil nilai dari local storage
+
   var transactionArray = ls.getItem("transaction"+username);
+
 
   // parsing data, dari string menjadi type
   if (transactionArray && transactionArray.length > 0) {
